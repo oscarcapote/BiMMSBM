@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.utils &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+<span class="c1"># from numba import jit</span>
+
+<div class="viewcode-block" id="init_P_matrix">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.init_P_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">init_P_matrix</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a normalized probability matrix</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    shape: int or tuple of ints</span>
+<span class="sd">        Dimension of the probability matrix</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    A normalized probability matrix that is normalized along the last axis</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">P</span><span class="o">/</span><span class="n">S</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">*</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span></div>
+
+
+<span class="c1"># Function to convert DataFrame to RST table</span>
+<div class="viewcode-block" id="df_to_rst_table">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.df_to_rst_table">[docs]</a>
+<span class="k">def</span> <span class="nf">df_to_rst_table</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a pandas DataFrame to a RST table format.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    df: pandas.DataFrame</span>
+<span class="sd">        The DataFrame to convert to a table.</span>
+
+<span class="sd">    title: str, default: None</span>
+<span class="sd">        The title of the table.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    A string with the RST table format.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get column names and calculate column widths</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">col_widths</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)),</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+    
+    <span class="c1"># Create the table header</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="n">col_widths</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span>
+    <span class="n">separator</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;=&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="n">col_widths</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">col</span><span class="si">:{</span><span class="n">width</span><span class="si">}}</span><span class="s1"> &#39;</span> <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">col_widths</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span>
+    
+    <span class="c1"># Create the table rows</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">row_str</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">:{</span><span class="n">width</span><span class="si">}}</span><span class="s1"> &#39;</span> <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col_widths</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">row_separator</span> <span class="o">=</span> <span class="s1">&#39;+&#39;</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="n">width</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="n">col_widths</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_str</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">row_separator</span><span class="p">)</span>
+    
+    <span class="c1"># Combine all parts</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="p">[</span><span class="n">header</span><span class="p">,</span> <span class="n">col_names</span><span class="p">,</span> <span class="n">separator</span><span class="p">]</span> <span class="o">+</span> <span class="n">rows</span> 
+    
+    <span class="c1"># Add title if provided</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">table</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="add_codes">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.add_codes">[docs]</a>
+<span class="k">def</span> <span class="nf">add_codes</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span><span class="n">col_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds to the df property a column with an id of the value of the col_name column</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    layer: node_layer, BiNet</span>
+<span class="sd">        Objects with a df attribute</span>
+
+<span class="sd">    col_name: str</span>
+<span class="sd">        Name of the column in the df attribute that an integer id will be assigned to every different value of the column.</span>
+<span class="sd">        This id is an integer that goes from 0 to N-1, where N is the number of different values in the col_name column.</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    -----------</span>
+<span class="sd">    dict_codes: dict</span>
+<span class="sd">        Dictionary where each key is a different value of the col_name column and the value is the id integer that was assigned.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dict_codes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">])</span><span class="c1">#.codes</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">])</span><span class="o">.</span><span class="n">codes</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">att</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="c1">#     print(i)</span>
+        <span class="n">dict_codes</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">c2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1"># layer.df = layer.df.join(pd.DataFrame(c2, columns=[col_name + &quot;_id&quot;]))</span>
+    <span class="n">layer</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">col_name</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">c2</span>
+    <span class="k">return</span> <span class="n">dict_codes</span></div>
+
+
+
+
+<div class="viewcode-block" id="finished">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.finished">[docs]</a>
+<span class="k">def</span> <span class="nf">finished</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">A_old</span><span class="p">,</span><span class="n">tol</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns True if A and A_old are simmilar by looking if the mean absolute difference between A and A_old is lower than a</span>
+<span class="sd">    tolerance tol</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">A</span><span class="o">-</span><span class="n">A_old</span><span class="p">))</span><span class="o">&lt;</span><span class="n">tol</span><span class="p">):</span>
+        <span class="n">finished</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">finished</span></div>
+
+
+
+<div class="viewcode-block" id="save_MMSBM_parameters">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.save_MMSBM_parameters">[docs]</a>
+<span class="k">def</span> <span class="nf">save_MMSBM_parameters</span><span class="p">(</span><span class="n">BiNet</span><span class="p">,</span><span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span><span class="n">matrix_format</span><span class="o">=</span><span class="s2">&quot;npy&quot;</span><span class="p">,</span><span class="n">BiNet_json</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It saves the parameters into matrices in the dir directory</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    BiNet: BiNet object</span>
+<span class="sd">        Bipartite network with the MMSBM initialized</span>
+
+<span class="sd">    dir: str, default: &quot;.&quot;</span>
+<span class="sd">        Directory where the files with the MMSBM parameters will be saved</span>
+
+<span class="sd">    matrix_format: str, default: npy</span>
+<span class="sd">        Format that the matrices parameters will be saved. It can be, npy or npz.</span>
+
+<span class="sd">    BiNet_json: boolean, default: False</span>
+<span class="sd">        If it is True, the information of the BiNet class will be saved into a json.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">na</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_a</span>
+
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_b</span>
+
+    <span class="k">if</span> <span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">&quot;npy&quot;</span><span class="p">:</span>
+        <span class="n">save_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">save</span>
+    <span class="k">if</span> <span class="n">matrix_format</span> <span class="o">==</span> <span class="s2">&quot;npz&quot;</span><span class="p">:</span>
+        <span class="n">save_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">savez</span>
+    <span class="c1"># else:</span>
+    <span class="c1">#     save_func = np.savetxt</span>
+
+
+    <span class="n">save_func</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s2">&quot;/pkl.&quot;</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">,</span><span class="n">BiNet</span><span class="o">.</span><span class="n">pkl</span><span class="p">)</span>
+    <span class="c1"># save_func(dir+&quot;/omega.&quot;+matrix_format,BiNet.omega)</span>
+
+
+    <span class="c1">##Metas saves</span>
+    <span class="k">for</span> <span class="n">layer</span><span class="p">,</span><span class="n">str_layer</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">na</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">),(</span><span class="n">nb</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">)]:</span>
+        <span class="n">save_func</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s2">&quot;/theta_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str_layer</span><span class="p">)</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">theta</span><span class="p">)</span>
+        <span class="c1">##inclusive_meta saves</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">save_func</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s2">&quot;/zeta_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">,</span><span class="n">meta</span><span class="o">.</span><span class="n">zeta</span><span class="p">)</span>
+            <span class="n">save_func</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s2">&quot;/q_k_tau_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">,</span><span class="n">meta</span><span class="o">.</span><span class="n">q_k_tau</span><span class="p">)</span>
+            <span class="c1"># save_func(dir+&quot;/omega_{}_in_{}.&quot;.format(str_layer,str(meta))+matrix_format,meta.omega)</span>
+
+        <span class="c1">##exclusive_meta saves</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">save_func</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s2">&quot;/qka_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">,</span><span class="n">meta</span><span class="o">.</span><span class="n">qka</span><span class="p">)</span>
+            <span class="c1"># save_func(dir+&quot;/omega_{}_ex_{}.&quot;.format(str_layer,str(meta))+matrix_format,meta.omega)</span>
+
+    <span class="c1">#BiNet json</span>
+    <span class="k">if</span> <span class="n">BiNet_json</span><span class="p">:</span>
+        <span class="n">save_BiNet_dict</span><span class="p">(</span><span class="n">BiNet</span><span class="p">,</span><span class="nb">dir</span><span class="o">=</span><span class="nb">dir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_nodes_layer_dict">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.save_nodes_layer_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">save_nodes_layer_dict</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span><span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It saves the some information, including the dict_codes from each layer, into a json called layer_data.json</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    layer: node_layer</span>
+<span class="sd">        Bipartite network object</span>
+
+<span class="sd">    dir: str</span>
+<span class="sd">        Directory where the files with the MMSBM parameters will be saved</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dict_info</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;dict_codes&quot;</span><span class="p">]</span> <span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">layer</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;nodes_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;N_nodes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;N_metas&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">N_meta</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;K&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">K</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;N_metas_exclusives&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">N_meta_exclusive</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;N_metas_inclusives&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">N_meta_inclusive</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;metadata_exclusives&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;metadata_exclusives&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                                        <span class="s2">&quot;meta_name&quot;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">),</span>
+                                        <span class="s2">&quot;lambda_val&quot;</span><span class="p">:</span><span class="n">meta</span><span class="o">.</span><span class="n">lambda_val</span><span class="p">,</span>
+                                        <span class="s2">&quot;N_atts&quot;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">meta</span><span class="p">),</span>
+                                        <span class="c1"># &quot;Attributes&quot;:[str(i) for i in np.unique(layer.df[str(meta)])],</span>
+                                        <span class="s2">&quot;dict_codes&quot;</span><span class="p">:{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                        <span class="p">})</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;metadata_inclusives&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;metadata_inclusives&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                                        <span class="s2">&quot;meta_name&quot;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">),</span>
+                                        <span class="s2">&quot;lambda_val&quot;</span><span class="p">:</span><span class="n">meta</span><span class="o">.</span><span class="n">lambda_val</span><span class="p">,</span>
+                                        <span class="s2">&quot;Tau&quot;</span><span class="p">:</span><span class="n">meta</span><span class="o">.</span><span class="n">Tau</span><span class="p">,</span>
+                                        <span class="s2">&quot;N_atts&quot;</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">meta</span><span class="p">),</span>
+                                        <span class="s2">&quot;separator&quot;</span><span class="p">:</span><span class="n">meta</span><span class="o">.</span><span class="n">_separator</span><span class="p">,</span>
+                                        <span class="c1"># &quot;Attributes&quot;:[str(i) for i in np.unique(layer.df[str(meta)])],</span>
+                                        <span class="s2">&quot;dict_codes&quot;</span><span class="p">:{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                                        <span class="p">})</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="sa">f</span><span class="s1">&#39;/layer_</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span><span class="si">}</span><span class="s1">_data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dict_info</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_BiNet_dict">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.save_BiNet_dict">[docs]</a>
+<span class="k">def</span> <span class="nf">save_BiNet_dict</span><span class="p">(</span><span class="n">BiNet</span><span class="p">,</span><span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It saves the some information, including the dict_codes from each layer, into a json called BiNet_data.json</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    BiNet: BiNet object</span>
+<span class="sd">        Bipartite network object</span>
+
+<span class="sd">    dir: str</span>
+<span class="sd">        Directory where the files with the MMSBM parameters will be saved</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">na</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_a</span>
+
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_b</span>
+    <span class="c1">#other values from EM and MMSBM saves</span>
+    <span class="n">dict_info</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;dict_codes&quot;</span><span class="p">]</span> <span class="o">=</span><span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;links_label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">labels_name</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;nodes_a_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">na</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;nodes_b_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;Ka&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">na</span><span class="o">.</span><span class="n">K</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;dict_codes_a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">na</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;Kb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">K</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;separator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">_separator</span>
+    <span class="n">dict_info</span><span class="p">[</span><span class="s2">&quot;dict_codes_b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nb</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+
+    <span class="c1"># for layer,str_layer in [(na,&quot;a&quot;),(nb,&quot;b&quot;)]:</span>
+    <span class="c1">#     layer_label = &quot;layer &quot;+str_layer</span>
+    <span class="c1">#     dict_info[layer_label] = {&quot;name&quot;:str(layer),</span>
+    <span class="c1">#                              &quot;N_nodes&quot;:len(layer),</span>
+    <span class="c1">#                              &quot;N_metas&quot;:layer.N_meta,</span>
+    <span class="c1">#                              &quot;K&quot;:layer.K,</span>
+    <span class="c1">#                              &quot;N_metas_exclusives&quot;:str(layer.N_meta_exclusive),</span>
+    <span class="c1">#                              &quot;N_metas_inclusives&quot;:str(layer.N_meta_inclusive),</span>
+    <span class="c1">#                              &quot;dict_codes&quot;:{str(k):str(v) for k,v in layer.dict_codes.items()}</span>
+    <span class="c1">#                               }</span>
+    <span class="c1">#     ##exclusive_meta saves</span>
+    <span class="c1">#     dict_info[layer_label][&quot;metadata_exclusives&quot;] = []</span>
+    <span class="c1">#     for i, meta in enumerate(layer.meta_exclusives.values()):</span>
+    <span class="c1">#         dict_info[layer_label][&quot;metadata_exclusives&quot;].append({</span>
+    <span class="c1">#                                                         &quot;Meta_name&quot;:str(meta),</span>
+    <span class="c1">#                                                         &quot;lambda&quot;:meta.lambda_val,</span>
+    <span class="c1">#                                                         &quot;N_atts&quot;:len(meta),</span>
+    <span class="c1">#                                                         # &quot;Attributes&quot;:[str(i) for i in np.unique(layer.df[str(meta)])],</span>
+    <span class="c1">#                                                         &quot;dict_codes&quot;:{str(k):str(v) for k,v in meta.dict_codes.items()}</span>
+    <span class="c1">#                                                         })</span>
+    <span class="c1">#     ##inclusive_meta saves</span>
+    <span class="c1">#     dict_info[layer_label][&quot;metadata_inclusives&quot;] = []</span>
+    <span class="c1">#     for i, meta in enumerate(layer.meta_inclusives.values()):</span>
+    <span class="c1">#         dict_info[layer_label][&quot;metadata_inclusives&quot;].append({</span>
+    <span class="c1">#                                                         &quot;Meta_name&quot;:str(meta),</span>
+    <span class="c1">#                                                         &quot;lambda&quot;:meta.lambda_val,</span>
+    <span class="c1">#                                                         &quot;Tau&quot;:meta.Tau,</span>
+    <span class="c1">#                                                         &quot;N_atts&quot;:len(meta),</span>
+    <span class="c1">#                                                         # &quot;Attributes&quot;:[str(i) for i in np.unique(layer.df[str(meta)])],</span>
+    <span class="c1">#                                                         &quot;dict_codes&quot;:{str(k):str(v) for k,v in meta.dict_codes.items()}</span>
+    <span class="c1">#                                                         })</span>
+    <span class="n">BiNet</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">dict_info</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="nb">dir</span><span class="o">+</span><span class="s1">&#39;/BiNet_data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dict_info</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_EM_parameters">
+<a class="viewcode-back" href="../../functions/utils.html#functions.utils.load_EM_parameters">[docs]</a>
+<span class="k">def</span> <span class="nf">load_EM_parameters</span><span class="p">(</span><span class="n">BiNet</span><span class="p">,</span><span class="n">directory</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    It loads the parameters from matrices in the directory</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    BiNet: BiNet object</span>
+<span class="sd">        Bipartite network with the MMSBM initialized</span>
+
+<span class="sd">    directory: str, default: &quot;.&quot;</span>
+<span class="sd">        Directory where the files with the MMSBM parameters will be loaded</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">na</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_a</span>
+
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_b</span>
+
+    <span class="k">if</span> <span class="n">directory</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;/&quot;</span><span class="p">:</span>
+        <span class="n">directory</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
+
+    <span class="c1">#format</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;npy&quot;</span><span class="p">,</span><span class="s2">&quot;npz&quot;</span><span class="p">,</span><span class="s2">&quot;txt&quot;</span><span class="p">,</span><span class="s2">&quot;dat&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;pkl.&quot;</span><span class="o">+</span><span class="n">f</span><span class="p">)</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;pkl.&quot;</span><span class="o">+</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">matrix_format</span> <span class="o">=</span> <span class="n">f</span>
+            <span class="k">break</span>
+
+    <span class="n">BiNet</span><span class="o">.</span><span class="n">pkl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;pkl.&quot;</span> <span class="o">+</span> <span class="n">matrix_format</span><span class="p">)</span>
+    <span class="c1"># BiNet.omega = np.load(directory+&quot;omega.&quot; + matrix_format)</span>
+
+
+
+    <span class="c1">##Metas saves</span>
+    <span class="k">for</span> <span class="n">layer</span><span class="p">,</span><span class="n">str_layer</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">na</span><span class="p">,</span><span class="s2">&quot;a&quot;</span><span class="p">),(</span><span class="n">nb</span><span class="p">,</span><span class="s2">&quot;b&quot;</span><span class="p">)]:</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;theta_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str_layer</span><span class="p">)</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">)</span>
+        <span class="c1">##inclusive_meta saves</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">meta</span><span class="o">.</span><span class="n">zeta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;zeta_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">)</span>
+            <span class="n">meta</span><span class="o">.</span><span class="n">q_k_tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;q_k_tau_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">)</span>
+            <span class="c1"># meta.omega = np.load(directory+&quot;omega_{}_in_{}.&quot;.format(str_layer,str(meta))+matrix_format)</span>
+
+        <span class="c1">##exclusive_meta saves</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="n">meta</span><span class="o">.</span><span class="n">qka</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">directory</span><span class="o">+</span><span class="s2">&quot;qka_</span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">meta</span><span class="p">))</span><span class="o">+</span><span class="n">matrix_format</span><span class="p">)</span></div>
+
+            <span class="c1"># meta.omega = np.load(directory+&quot;omega_{}_ex_{}.&quot;.format(str_layer,str(meta))+matrix_format)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

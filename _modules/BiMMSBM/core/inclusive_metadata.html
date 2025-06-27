@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiMMSBM.core.inclusive_metadata &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">BiMMSBM.core.inclusive_metadata</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for BiMMSBM.core.inclusive_metadata</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">.metadata_layer</span> <span class="kn">import</span> <span class="n">metadata_layer</span>
+
+<div class="viewcode-block" id="inclusive_metadata">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.inclusive_metadata">[docs]</a>
+<span class="k">class</span> <span class="nc">inclusive_metadata</span><span class="p">(</span><span class="n">metadata_layer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for handling inclusive metadata in a nodes layer.</span>
+
+<span class="sd">    This class inherits from metadata_layer and adds functionality for handling</span>
+<span class="sd">    inclusive metadata, where each node can have multiple attributes from a set</span>
+<span class="sd">    of possible attributes.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lambda_val : float</span>
+<span class="sd">        Metadata visibility parameter</span>
+<span class="sd">    meta_name : str</span>
+<span class="sd">        Name of the metadata column in the node_layer class</span>
+<span class="sd">    N_att : int</span>
+<span class="sd">        Number of different categorical attributes of the metadata.</span>
+<span class="sd">    dict_codes : dict</span>
+<span class="sd">        A dictionary to store codes related to the metadata.</span>
+<span class="sd">        Codes are integers ranged from 0 to N_att-1.</span>
+<span class="sd">    links : 2D NumPy array</span>
+<span class="sd">        Array representing links between nodes and metadata using its codes.</span>
+<span class="sd">    Tau : int</span>
+<span class="sd">        Number of membership groups of this metadata</span>
+<span class="sd">    q_k_tau : np.array</span>
+<span class="sd">        Probability matrix between groups, membership groups and attributes</span>
+<span class="sd">    neighbours_meta : list</span>
+<span class="sd">        List where the index is the attribute and the element is an array of the nodes that are connected to the same attribute.</span>
+<span class="sd">    masks_att_list : list</span>
+<span class="sd">        List of arrays of ints where the array number att has all the index positions of links that connects the attribute att</span>
+<span class="sd">    labels : np.array</span>
+<span class="sd">        Array of labels of the links: 0 if not connected 1 if connected</span>
+<span class="sd">    masks_label_list : list</span>
+<span class="sd">        masks list to know wich links have label r (that is the index of the list).</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    init_q_k_tau(K, Tau)</span>
+<span class="sd">        Initialization of the q_k_tau matrix.</span>
+<span class="sd">    code_inclusive_metadata(meta_row)</span>
+<span class="sd">        Code the inclusive metadata that is a string of metadata separated by inclusive_metadata._separator.</span>
+<span class="sd">    __len__()</span>
+<span class="sd">        Returns the number of different categorical attributes.</span>
+<span class="sd">    __str__()</span>
+<span class="sd">        Returns the name of the metadata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="inclusive_metadata.__init__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.inclusive_metadata.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">,</span> <span class="n">Tau</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the inclusive_metadata class</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        lambda_val: float</span>
+<span class="sd">            Metadata visibility</span>
+<span class="sd">        meta_name: str</span>
+<span class="sd">            Name of the metadata column in the node_layer class</span>
+<span class="sd">        Tau: int</span>
+<span class="sd">            Number of membership groups of this metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tau</span> <span class="o">=</span> <span class="n">Tau</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">q_k_tau</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Probability matrix between groups, membership groups and attributes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            Matrix of probabilities between groups, membership groups and attributes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_k_tau</span>
+
+    <span class="nd">@q_k_tau</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">q_k_tau</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q_k_tau</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setter for the q_k_tau matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        q_k_tau : np.array</span>
+<span class="sd">            Matrix of probabilities between groups, membership groups and attributes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q_k_tau</span> <span class="o">=</span> <span class="n">q_k_tau</span>
+
+<div class="viewcode-block" id="inclusive_metadata.init_q_k_tau">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.inclusive_metadata.init_q_k_tau">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_q_k_tau</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">Tau</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the q_k_tau matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        K : int</span>
+<span class="sd">            Number of groups</span>
+<span class="sd">        Tau : int</span>
+<span class="sd">            Number of membership groups</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            Initialized q_k_tau matrix of shape (K, Tau, N_att)</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If K or Tau are not positive</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">K</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Value of K must be positive!&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">Tau</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Value of Tau must be positive!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q_k_tau</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tau</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N_att</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_q_k_tau</span> </div>
+
+    
+<div class="viewcode-block" id="inclusive_metadata.code_inclusive_metadata">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.inclusive_metadata.code_inclusive_metadata">[docs]</a>
+    <span class="k">def</span> <span class="nf">code_inclusive_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meta_row</span><span class="p">):</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Code the inclusive metadata that is a string of metadata separated by inclusive_metadata._separator.</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+<span class="sd">       meta_row : str</span>
+<span class="sd">           String of metadata separated by inclusive_metadata._separator</span>
+
+<span class="sd">       Returns</span>
+<span class="sd">       -------</span>
+<span class="sd">       str</span>
+<span class="sd">           String of metadata ids separated by inclusive_metadata._separator</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+       <span class="n">meta_list</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_separator</span><span class="p">)</span>
+       <span class="c1">#print(meta_list)</span>
+       <span class="n">meta_list_ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">meta</span><span class="p">])</span> <span class="k">for</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">meta_list</span><span class="p">]</span>
+       <span class="c1">#print(meta_list_ids)</span>
+       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">meta_list_ids</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

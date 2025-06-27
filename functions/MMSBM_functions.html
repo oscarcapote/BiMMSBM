@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMSBM Functions &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Numba Functions" href="numba_functions.html" />
+    <link rel="prev" title="Functions" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Classes.html">Classes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Functions.html">Functions</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MMSBM Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.omega_comp_arrays"><code class="docutils literal notranslate"><span class="pre">omega_comp_arrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.omega_comp_arrays_exclusive"><code class="docutils literal notranslate"><span class="pre">omega_comp_arrays_exclusive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.theta_comp_arrays_multilayer"><code class="docutils literal notranslate"><span class="pre">theta_comp_arrays_multilayer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.theta_comp_array"><code class="docutils literal notranslate"><span class="pre">theta_comp_array()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.q_ka_comp_arrays"><code class="docutils literal notranslate"><span class="pre">q_ka_comp_arrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.p_kl_comp_arrays"><code class="docutils literal notranslate"><span class="pre">p_kl_comp_arrays()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.theta_meta"><code class="docutils literal notranslate"><span class="pre">theta_meta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.log_like_comp"><code class="docutils literal notranslate"><span class="pre">log_like_comp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.total_p_comp_test"><code class="docutils literal notranslate"><span class="pre">total_p_comp_test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.MMSBM_functions.log_like_comp_exclusive"><code class="docutils literal notranslate"><span class="pre">log_like_comp_exclusive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="numba_functions.html">Numba Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../Functions.html">Functions</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Functions</a></li>
+      <li class="breadcrumb-item active">MMSBM Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/functions/MMSBM_functions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mmsbm-functions">
+<h1>MMSBM Functions<a class="headerlink" href="#mmsbm-functions" title="Link to this heading"></a></h1>
+<dl class="py function" id="module-functions.MMSBM_functions">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.omega_comp_arrays">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">omega_comp_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Na</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_kl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links_ratings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#omega_comp_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.omega_comp_arrays" title="Link to this definition"></a></dt>
+<dd><p>Computes the omega matrix for a bipartite network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Na</strong> (<em>int</em>) – Number of nodes in layer a</p></li>
+<li><p><strong>Nb</strong> (<em>int</em>) – Number of nodes in layer b</p></li>
+<li><p><strong>p_kl</strong> (<em>np.array</em>) – Probability matrix between groups k and l</p></li>
+<li><p><strong>theta</strong> (<em>np.array</em>) – Membership matrix for layer a</p></li>
+<li><p><strong>eta</strong> (<em>np.array</em>) – Membership matrix for layer b</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – Number of groups in layer a</p></li>
+<li><p><strong>L</strong> (<em>int</em>) – Number of groups in layer b</p></li>
+<li><p><strong>links_array</strong> (<em>np.array</em>) – Array containing the links between nodes</p></li>
+<li><p><strong>links_ratings</strong> (<em>np.array</em>) – Array containing the ratings/labels for each link</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed omega matrix of shape (Na, Nb, K, L)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.omega_comp_arrays_exclusive">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">omega_comp_arrays_exclusive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_ka</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_att</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metas_links_arrays_nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#omega_comp_arrays_exclusive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.omega_comp_arrays_exclusive" title="Link to this definition"></a></dt>
+<dd><p>Computes the omega matrix for exclusive metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>q_ka</strong> (<em>np.array</em>) – Probability matrix between groups k and attributes a</p></li>
+<li><p><strong>N_att</strong> (<em>int</em>) – Number of attributes</p></li>
+<li><p><strong>theta</strong> (<em>np.array</em>) – Membership matrix for nodes</p></li>
+<li><p><strong>N_nodes</strong> (<em>int</em>) – Number of nodes</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – Number of groups</p></li>
+<li><p><strong>metas_links_arrays_nodes</strong> (<em>np.array</em>) – Array containing the links between nodes and metadata</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed omega matrix of shape (N_nodes, N_att, K)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.theta_comp_arrays_multilayer">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">theta_comp_arrays_multilayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BiNet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'a'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#theta_comp_arrays_multilayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.theta_comp_arrays_multilayer" title="Link to this definition"></a></dt>
+<dd><p>Computes the membership matrix for a layer in a bipartite network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>BiNet</strong> (<a class="reference internal" href="../Classes.html#BiMMSBM.core.BiNet" title="BiMMSBM.core.BiNet"><em>BiNet</em></a>) – The bipartite network object</p></li>
+<li><p><strong>layer</strong> (<em>str</em><em>, </em><em>default=&quot;a&quot;</em>) – The layer to compute the membership matrix for (“a” or “b”)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed membership matrix for the specified layer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – If layer is not “a” or “b”</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.theta_comp_array">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">theta_comp_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N_nodes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">denominators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#theta_comp_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.theta_comp_array" title="Link to this definition"></a></dt>
+<dd><p>Computes the membership matrix of a nodes layer with no metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N_nodes</strong> (<em>int</em>) – Number of nodes</p></li>
+<li><p><strong>K</strong> (<em>int</em>) – Number of groups</p></li>
+<li><p><strong>omega</strong> (<em>np.array</em>) – The omega matrix</p></li>
+<li><p><strong>denominators</strong> (<em>np.array</em>) – Array of denominators for normalization</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – Array containing the links</p></li>
+<li><p><strong>masks_list</strong> (<em>list</em>) – List of masks for each attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed membership matrix of shape (N_nodes, K)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.q_ka_comp_arrays">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">q_ka_comp_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_att</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks_att_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#q_ka_comp_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.q_ka_comp_arrays" title="Link to this definition"></a></dt>
+<dd><p>Computes the probability matrix between nodes in group k and attribute a.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>int</em>) – Number of groups</p></li>
+<li><p><strong>N_att</strong> (<em>int</em>) – Number of attributes</p></li>
+<li><p><strong>omega</strong> (<em>np.array</em>) – The omega matrix of the BiNet</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – The links of the BiNet</p></li>
+<li><p><strong>masks_att_list</strong> (<em>list</em>) – A list of masks for each attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The probability matrix of shape (K, N_att) between nodes in group k and attribute a</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.p_kl_comp_arrays">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">p_kl_comp_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ka</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Kb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#p_kl_comp_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.p_kl_comp_arrays" title="Link to this definition"></a></dt>
+<dd><p>Computes the probability matrix between groups in nodes_a layer and group nodes_b layer in a BiNet network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Ka</strong> (<em>int</em>) – Number of groups in layer a</p></li>
+<li><p><strong>Kb</strong> (<em>int</em>) – Number of groups in layer b</p></li>
+<li><p><strong>N_labels</strong> (<em>int</em>) – Number of possible labels</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – Array containing the links</p></li>
+<li><p><strong>omega</strong> (<em>np.array</em>) – The omega matrix</p></li>
+<li><p><strong>mask_list</strong> (<em>list</em>) – List of masks for each label</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The probability matrix of shape (Ka, Kb, N_labels) between nodes_a and nodes_b</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.theta_meta">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">theta_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#theta_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.theta_meta" title="Link to this definition"></a></dt>
+<dd><p>Computes the membership matrix for metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<em>np.array</em>) – The membership matrix</p></li>
+<li><p><strong>meta</strong> (<a class="reference internal" href="../Classes.html#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer"><em>metadata_layer</em></a>) – The metadata layer object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed membership matrix for the metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.log_like_comp">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">log_like_comp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pkl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#log_like_comp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.log_like_comp" title="Link to this definition"></a></dt>
+<dd><p>Computes the log_likelihood given the membership matrices of two nodes layer and its matrix probabilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<em>np.array</em>) – Membership matrix for layer a</p></li>
+<li><p><strong>eta</strong> (<em>np.array</em>) – Membership matrix for layer b</p></li>
+<li><p><strong>pkl</strong> (<em>np.array</em>) – Probability matrix between groups</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – Array containing the indexes of the links</p></li>
+<li><p><strong>labels</strong> (<em>np.array</em>) – Array containing the indexes of the labels for each link</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed log likelihood</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.total_p_comp_test">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">total_p_comp_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pkl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#total_p_comp_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.total_p_comp_test" title="Link to this definition"></a></dt>
+<dd><p>Computes the probabilities that two nodes are connected with each link label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<em>np.array</em>) – Membership matrix for layer a</p></li>
+<li><p><strong>eta</strong> (<em>np.array</em>) – Membership matrix for layer b</p></li>
+<li><p><strong>pkl</strong> (<em>np.array</em>) – Probability matrix between groups</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – Array containing the links</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of probabilities for each link label</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.MMSBM_functions.log_like_comp_exclusive">
+<span class="sig-prename descclassname"><span class="pre">functions.MMSBM_functions.</span></span><span class="sig-name descname"><span class="pre">log_like_comp_exclusive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qka</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/MMSBM_functions.html#log_like_comp_exclusive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.MMSBM_functions.log_like_comp_exclusive" title="Link to this definition"></a></dt>
+<dd><p>Computes the log_likelihood of a bipartite network of exclusive metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<em>np.array</em>) – Membership matrix for nodes</p></li>
+<li><p><strong>qka</strong> (<em>np.array</em>) – Probability matrix between groups and attributes</p></li>
+<li><p><strong>links</strong> (<em>np.array</em>) – Array containing the indexes of the links</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The computed log likelihood for exclusive metadata</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="numba_functions.html" class="btn btn-neutral float-right" title="Numba Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

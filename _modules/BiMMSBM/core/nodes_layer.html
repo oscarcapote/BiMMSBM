@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiMMSBM.core.nodes_layer &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">BiMMSBM.core.nodes_layer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for BiMMSBM.core.nodes_layer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">.metadata_layer</span> <span class="kn">import</span> <span class="n">metadata_layer</span>
+<span class="kn">from</span> <span class="nn">.exclusive_metadata</span> <span class="kn">import</span> <span class="n">exclusive_metadata</span>
+<span class="kn">from</span> <span class="nn">.inclusive_metadata</span> <span class="kn">import</span> <span class="n">inclusive_metadata</span>
+<span class="kn">from</span> <span class="nn">..functions</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="nodes_layer">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer">[docs]</a>
+<span class="k">class</span> <span class="nc">nodes_layer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class of a layer that contains nodes</span>
+
+<span class="sd">    Is initialized using a dataframe and can be modify it using the df attribute</span>
+
+<span class="sd">    The rest of the columns of the dataframe can contain information (metadata) from the nodes.</span>
+<span class="sd">    This metadata can be added as a metadata_layer object considering the network as multipartite network.</span>
+<span class="sd">    This metadata can be classified it as exclusive_metadata (if a node only accepts one attribute) and inclusive_metadata (if the node accepts more than one attribute)</span>
+
+<span class="sd">    See for more information of metadata: metadata_layer, exclusive_metadata and inclusive_metadata.</span>
+
+<span class="sd">    These objects can be added into a BiNet (bipartite network) where connections between nodes_layer are considered to infer links and their labels  (see BiNet)</span>
+
+<span class="sd">    ...</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    K : int</span>
+<span class="sd">        Number of memberships groups for the layer.</span>
+
+<span class="sd">    node_type : str</span>
+<span class="sd">        Name of the layer. It corresponds with the column where the nodes&#39; name are contained.</span>
+
+<span class="sd">    df : pandas DataFrame</span>
+<span class="sd">        DataFrame that contains information of the nodes. It contains one column</span>
+<span class="sd">        with the nodes&#39; name and the rest are its metadata.</span>
+
+<span class="sd">    dict_codes : dict</span>
+<span class="sd">        Dictionary with the integer id of the nodes. The key is the nodes&#39; name and the value its id.</span>
+<span class="sd">    </span>
+<span class="sd">    dict_decodes : dict</span>
+<span class="sd">        Dictionary with the integer id of the nodes. The key is the nodes&#39; id and the value its name.</span>
+<span class="sd">    </span>
+<span class="sd">    meta_exclusives : list of metadata_layer</span>
+<span class="sd">        List with the metadata exclusives objects that contains the metadata that will be used in the inference.</span>
+<span class="sd">    </span>
+<span class="sd">    meta_inclusives : list of metadata_layer</span>
+<span class="sd">        List with the metadata inclusives object that contains the metadata that will be used in the inference.</span>
+<span class="sd">    </span>
+<span class="sd">    meta_neighbours_exclusives :</span>
+<span class="sd">        Dictionaries of lists that contains, for each node its exclusives metadata neighbours.</span>
+<span class="sd">    </span>
+<span class="sd">    meta_neighbours_inclusives :</span>
+<span class="sd">        Dictionaries of lists that contains, for each node its inclusives metadata neighbours.</span>
+<span class="sd">    </span>
+<span class="sd">    nodes_observed_inclusive :</span>
+<span class="sd">        List of arrays for each metadata with the nodes that has assigned an attribute of the metadata</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="nodes_layer.__init__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nodes_name</span><span class="p">,</span> <span class="n">nodes_info</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dict_codes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialization of the nodes_layer class</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        K : int</span>
+<span class="sd">            Number of memberships groups for the layer.</span>
+<span class="sd">        nodes_name : str</span>
+<span class="sd">            Name of the nodes column in the nodes_layer class</span>
+<span class="sd">        nodes_info : str or pandas DataFrame</span>
+<span class="sd">            If it is a string, it is the directory of the file with the nodes information.</span>
+<span class="sd">            If it is a DataFrame, it is the DataFrame with the nodes information.</span>
+<span class="sd">        separator : str, default \t</span>
+<span class="sd">            Separator if the columns of the file that contains the nodes information</span>
+<span class="sd">        dict_codes : dict, default None</span>
+<span class="sd">            Dictionary with the integer id of the nodes. The key is the nodes&#39; name and the value its id.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">=</span> <span class="n">nodes_name</span>
+
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">nodes_info</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">nodes_info</span><span class="p">,</span> <span class="n">separator</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">nodes_info</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span> <span class="o">=</span> <span class="n">nodes_info</span>
+
+
+        <span class="k">if</span> <span class="n">dict_codes</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int16&quot;</span><span class="p">):</span>
+                <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="n">dict_codes</span> <span class="o">=</span> <span class="n">new_dict</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+                    <span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="n">nodes_name</span><span class="o">+</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span><span class="n">dict_codes</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dict_codes</span> <span class="o">=</span> <span class="n">add_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes_name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dict_decodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">nodes_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_exclusives</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># all neighbours (connected and not) of inclusive metadata</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_inclusive</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_exclusive</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_has_metas</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1">#Boolean that tells you if you have metadata initialized with non 0 values of lambda_val</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nodes_list</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_exclusive</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_inclusive</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dict_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict_codes</span>
+
+    <span class="nd">@dict_codes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">dict_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict_codes</span> <span class="o">=</span> <span class="n">dc</span>
+        <span class="k">return</span> <span class="n">dc</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dict_decodes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dict_decodes</span>
+
+    <span class="nd">@dict_decodes</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">dict_decodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dd</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dict_decodes</span> <span class="o">=</span> <span class="n">dd</span>
+        <span class="k">return</span> <span class="n">dd</span>
+
+<div class="viewcode-block" id="nodes_layer.__getitem__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__getitem__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the metadata object with the name metadata_name</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metadata_name : str</span>
+<span class="sd">            Name of the metadata</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        metadata_layer</span>
+<span class="sd">            metadata_layer object with the name metadata_name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">metadata_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">metadata_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metadata </span><span class="si">{</span><span class="n">metadata_name</span><span class="si">}</span><span class="s2"> name not found&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.__setitem__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__setitem__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata_name</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the metadata object with the name metadata_name</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metadata_name : str</span>
+<span class="sd">            Name of the metadata</span>
+
+<span class="sd">        metadata : metadata_layer</span>
+<span class="sd">            metadata_layer object with the name metadata_name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">exclusive_metadata</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">inclusive_metadata</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metadata </span><span class="si">{</span><span class="n">metadata_name</span><span class="si">}</span><span class="s2"> is not a metadata_layer object&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.__delitem__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__delitem__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the metadata object with the name metadata_name</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        metadata_name : str</span>
+<span class="sd">            Name of the metadata</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">metadata_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_exclusive</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N_meta</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">metadata_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">[</span><span class="n">metadata_name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_inclusive</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">N_meta</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Metadata </span><span class="si">{</span><span class="n">metadata_name</span><span class="si">}</span><span class="s2"> name not found&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.read_file">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.read_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the nodes information from a file and returns it as a pandas DataFrame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename or path to the file containing nodes information.</span>
+
+<span class="sd">        separator : str, default: &quot;\t&quot;</span>
+<span class="sd">            Separator of the nodes DataFrame. Default is &quot;\t&quot;.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataFrame</span>
+<span class="sd">            A pandas DataFrame containing nodes information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">separator</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;python&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.create_simple_layer">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.create_simple_layer">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_simple_layer</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nodes_list</span><span class="p">,</span> <span class="n">nodes_name</span><span class="p">,</span> <span class="n">dict_codes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Create a nodes_layer object from a list or DataSeries only with the known nodes and without metadata</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        K: Int</span>
+<span class="sd">            Number of membership groups of nodes_layer</span>
+<span class="sd">        nodes_list: array-like, DataFrame or DataSeries</span>
+<span class="sd">            array-like, DataFrame or DataSeries with all the nodes</span>
+<span class="sd">        nodes_name: str</span>
+<span class="sd">            Name of the nodes type (users, movies, metabolites...) that are or will be in DataFrame</span>
+<span class="sd">        dict_codes: dict, None, default: None</span>
+<span class="sd">            Dictionary where the keys are the names of nodes, and the values are their ids. If None, the program will generate the ids.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">nodes_name</span><span class="p">:</span> <span class="n">nodes_list</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">new_df</span> <span class="o">=</span> <span class="n">nodes_list</span>
+
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">nodes_name</span><span class="p">,</span> <span class="n">new_df</span><span class="p">,</span> <span class="n">dict_codes</span><span class="o">=</span><span class="n">dict_codes</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">node_type</span>
+
+<div class="viewcode-block" id="nodes_layer.update_N">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.update_N">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_N</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N_nodes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the number of nodes and reinitialize the membership matrix</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        N_nodes: Int</span>
+<span class="sd">            Number of nodes</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span> <span class="o">=</span> <span class="n">N_nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">init_P_matrix</span><span class="p">(</span><span class="n">N_nodes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">K</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.update_K">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.update_K">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_K</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Update the number of membership groups of nodes_layer and reinitialize the membership matrix</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        K: Int</span>
+<span class="sd">            Number of membership groups of nodes_layer</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theta</span> <span class="o">=</span> <span class="n">init_P_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.__len__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__len__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the number of nodes in the layer.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Number of nodes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.__iter__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__iter__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns an iterator over the nodes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        iterator</span>
+<span class="sd">            Iterator over node IDs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.__contains__">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.__contains__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if a node exists in the layer.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        node_id : int</span>
+<span class="sd">            Node identifier</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the node exists, False otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">node_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="nodes_layer.add_exclusive_metadata">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.add_exclusive_metadata">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_exclusive_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">dict_codes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add exclusive_metadata object to node_layer object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        meta_name: str</span>
+<span class="sd">            Name of the metadata that should be in the node dataframe</span>
+
+<span class="sd">        lambda_val: Float</span>
+<span class="sd">            Value of the metadata visibility</span>
+
+<span class="sd">        dict_codes: dict, None, default: None</span>
+<span class="sd">            Dictionary where the keys are the names of metadata&#39;s type, and the values are the ids. If None, the program will generate the ids.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        
+        <span class="k">if</span> <span class="n">lambda_val</span> <span class="o">&gt;</span> <span class="mf">1.e-16</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_metas</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+
+        <span class="c1"># create metadata object</span>
+        <span class="n">em</span> <span class="o">=</span> <span class="n">exclusive_metadata</span><span class="p">(</span><span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">dict_codes</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">df_dropna</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">df_dropna</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">df_dropna</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int16&quot;</span><span class="p">):</span>
+                <span class="n">dict_codes</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">):</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+            <span class="n">em</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+            <span class="n">df_dropna</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="n">meta_name</span> <span class="o">+</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span><span class="n">dict_codes</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">em</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">add_codes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">)</span>
+
+        <span class="n">df_dropna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">meta_name</span><span class="p">])</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">df_dropna</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">+</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">em</span><span class="o">.</span><span class="n">_meta_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_exclusive</span>
+
+        <span class="n">em</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="n">df_dropna</span><span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="n">meta_name</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">em</span><span class="o">.</span><span class="n">N_att</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">em</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">)</span>
+
+        <span class="c1">#list of arrays of ints where the array number att has all the index positions of links that connects the attribute att</span>
+        <span class="n">em</span><span class="o">.</span><span class="n">masks_att_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">em</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">em</span><span class="o">.</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">r</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">em</span><span class="o">.</span><span class="n">masks_att_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+
+        <span class="c1"># update meta related nodes attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">em</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_exclusive</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">em</span><span class="p">)]</span> <span class="o">=</span> <span class="n">observed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_exclusive</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">observed</span><span class="p">:</span>
+            <span class="n">meta_neighbours</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span> <span class="p">]</span><span class="o">==</span> <span class="n">n</span><span class="p">][</span><span class="n">meta_name</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]</span><span class="c1">#.values</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_exclusives</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta_neighbours</span>
+
+        <span class="k">return</span> <span class="n">em</span></div>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="nodes_layer.add_inclusive_metadata">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.add_inclusive_metadata">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_inclusive_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">,</span> <span class="n">Tau</span><span class="p">,</span><span class="o">*</span><span class="p">,</span><span class="n">dict_codes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s2">&quot;|&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Add inclusive_metadata object to node_layer object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        meta_name: str</span>
+<span class="sd">            Name of the metadata that should be in the node dataframe</span>
+
+<span class="sd">        lambda_val: float</span>
+<span class="sd">            Value of the metadata visibility</span>
+
+<span class="sd">        Tau: Int</span>
+<span class="sd">            Number of membership groups of metadata</span>
+
+<span class="sd">        separator: str, default: &quot;|&quot;</span>
+<span class="sd">            Separator that is used to differentiate the different metadata assigned for each node</span>
+
+<span class="sd">        dict_codes: dict, None, default: None </span>
+<span class="sd">            Dictionary where the keys are the names of metadata&#39;s type,</span>
+<span class="sd">            and the values are the ids. If None, the program will generate the ids.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1"># create metadata object</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">inclusive_metadata</span><span class="p">(</span><span class="n">lambda_val</span><span class="p">,</span> <span class="n">meta_name</span><span class="p">,</span> <span class="n">Tau</span><span class="p">)</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">_separator</span> <span class="o">=</span> <span class="n">separator</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">_meta_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_inclusive</span>
+        <span class="c1"># im.q_k_tau(self.K, Tau, 2)lambda_val, meta_name, Tau</span>
+
+        <span class="c1"># links and neighbours</span>
+        <span class="n">df_dropna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">meta_name</span><span class="p">])</span>
+        <span class="n">meta_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">df_dropna</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># Nodes with known metadata</span>
+        <span class="n">observed_id</span> <span class="o">=</span> <span class="n">df_dropna</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># Nodes with known metadata</span>
+
+
+        <span class="k">if</span> <span class="n">lambda_val</span> <span class="o">&gt;</span> <span class="mf">1.e-16</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_metas</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+        <span class="c1"># encode metadata</span>
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="p">[]</span><span class="c1">#meta connected with 1</span>
+
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">observed_id</span><span class="p">):</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">meta_list</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">:</span>
+                <span class="n">meta_neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">meta_neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">j</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">separator</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="n">dict_codes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">[</span><span class="n">meta_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;int16&quot;</span><span class="p">):</span>
+                <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+                <span class="n">dict_codes</span> <span class="o">=</span> <span class="n">new_dict</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+                    <span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">codes</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span> <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+                    <span class="n">codes</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">codes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">codes</span><span class="p">))</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">codes</span>
+
+
+        <span class="n">decodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">}</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">decodes</span> <span class="o">=</span> <span class="n">decodes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">dict_decodes</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">decodes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_att</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">codes</span><span class="p">))</span>
+
+        <span class="c1"># Add the new column with metadata IDs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">im</span><span class="o">.</span><span class="n">code_inclusive_metadata</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="p">[[</span><span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">L</span><span class="p">]</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">]</span>
+
+        <span class="c1"># Links between node and metadata type</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="c1"># Label of the link: 0 if not connected 1 if connected</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observed_id</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="k">if</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1">#list where the index is the attribute and the element is an array of the nodes that are connected to the same attribute</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">links</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_att_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="p">))]</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="n">links</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_labels</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1">#connected or disconnected</span>
+        <span class="c1">#nodes neigbours</span>
+
+
+        <span class="c1">#masks list to know wich links have label r (that is the index of the list)</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="n">r</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+        <span class="c1"># codes = pd.Categorical(self.df[meta_name]).codes</span>
+        <span class="c1"># self.df = self.df.join(pd.DataFrame(codes, columns=[meta_name+&quot;_id&quot;]))</span>
+        <span class="c1"># self.inclusive_linked.append([[int(j) for j in i.split(separator)] for i in df_dropna [meta_name+&quot;_id&quot;].values])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_inclusive</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span> <span class="o">=</span> <span class="n">observed_id</span>
+
+        <span class="c1"># update meta related nodes attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span> <span class="o">=</span> <span class="n">im</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta_inclusive</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N_meta</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span> <span class="o">=</span> <span class="n">meta_neighbours</span>
+
+        <span class="k">return</span> <span class="n">im</span></div>
+
+
+
+<div class="viewcode-block" id="nodes_layer.update_exclusives_id">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.update_exclusives_id">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_exclusives_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">em</span><span class="p">,</span> <span class="n">dict_codes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Changes the ids (the integer assigned to each metadata attribute) given the dict_codes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        dict_codes: dict</span>
+<span class="sd">            Dictionary where the keys are the names of metadata&#39;s type, and the values are the ids.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">replacer</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+            <span class="n">replacer</span><span class="p">[</span><span class="n">em</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]]</span><span class="o">=</span> <span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]</span>
+
+        <span class="n">em</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="n">em</span><span class="o">.</span><span class="n">meta_name</span> <span class="o">+</span><span class="s2">&quot;_id&quot;</span><span class="p">:</span><span class="n">replacer</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">em</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="n">em</span><span class="o">.</span><span class="n">meta_name</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="c1">#list of arrays of ints where the array number att has all the index positions of links that connects the attribute att</span>
+        <span class="n">em</span><span class="o">.</span><span class="n">masks_att_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">em</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">em</span><span class="o">.</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">r</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">em</span><span class="o">.</span><span class="n">masks_att_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+
+
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">N_nodes</span><span class="p">):</span>
+            <span class="n">meta_neighbours</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">node_type</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span> <span class="p">]</span><span class="o">==</span> <span class="n">n</span><span class="p">][</span><span class="n">em</span><span class="o">.</span><span class="n">meta_name</span> <span class="o">+</span> <span class="s2">&quot;_id&quot;</span><span class="p">]</span><span class="c1">#.values</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_exclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">em</span><span class="p">)]</span> <span class="o">=</span> <span class="n">meta_neighbours</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">update_inclusives_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">dict_codes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Changes the ids (the integer assigned to each metadata attribute) given the dict_codes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        im: inclusive_metadata</span>
+<span class="sd">            inclusive_metadata object to update the ids</span>
+
+<span class="sd">        dict_codes: dict</span>
+<span class="sd">            Dictionary where the keys are the names of metadata&#39;s type, and the values are the ids.</span>
+<span class="sd">            If None, ids will be generated automatically.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_inclusive</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span>
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+        <span class="c1">#Replacer to change the ids</span>
+        <span class="n">replacer</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+            <span class="n">replacer</span><span class="p">[</span><span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]]</span><span class="o">=</span> <span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]</span>
+
+
+        <span class="c1">#New ids into the neigbours list</span>
+        <span class="k">for</span> <span class="n">neig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">neig</span><span class="p">:</span>
+                <span class="n">N</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replacer</span><span class="p">[</span><span class="n">ids</span><span class="p">])</span>
+            <span class="n">meta_neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+
+
+        <span class="c1">#changing codes dicts</span>
+        <span class="n">codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+
+
+        <span class="n">decodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">}</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">decodes</span> <span class="o">=</span> <span class="n">decodes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_att</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">codes</span><span class="p">))</span>
+
+        <span class="c1"># Links between node and metadata type</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="c1"># Label of the link: 0 if not connected 1 if connected</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observed_id</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="k">if</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1">#list where the index is the attribute and the element is an array of the nodes that are connected to the same attribute</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">links</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_att_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="p">))]</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="n">links</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_labels</span> <span class="o">=</span> <span class="mi">2</span><span class="c1">#connected or disconnected</span>
+        <span class="c1">#nodes neigbours</span>
+
+
+        <span class="c1">#masks list to know wich links have label r (that is the index of the list)</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="n">r</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+
+
+        <span class="c1"># update meta related nodes attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">L</span><span class="p">]</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">save_nodes_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        It saves the nodes_layer object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        dir: str</span>
+<span class="sd">            Directory where the json with the nodes_layer information will be saved</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">utils</span><span class="o">.</span><span class="n">save_nodes_layer_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_nodes_layer_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">json_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        It loads the nodes_layer object from a JSON file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        dir: str</span>
+<span class="sd">            Directory where the json with the nodes_layer information is saved</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nodes_info</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;metadata_exclusives&quot;</span><span class="p">]:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">add_exclusive_metadata</span><span class="p">(</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;metadata_inclusives&quot;</span><span class="p">]:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">add_inclusive_metadata</span><span class="p">(</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">layer</span>
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="nodes_layer.update_inclusives_id">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.update_inclusives_id">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_inclusives_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">dict_codes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Changes the ids (the integer assigned to each metadata attribute) given the dict_codes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        dict_codes: dict Dictionary where the keys are the names of metadata&#39;s type, and the values are the ids.</span>
+<span class="sd">                    If None, ids will be generated automatically.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes_observed_inclusive</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span>
+        <span class="n">meta_neighbours</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1">#Replacer to change the ids</span>
+        <span class="n">replacer</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="n">dict_codes</span><span class="p">:</span>
+            <span class="n">replacer</span><span class="p">[</span><span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dict_codes</span><span class="p">[</span><span class="n">att</span><span class="p">]</span>
+
+        <span class="c1">#New ids into the neigbours list</span>
+        <span class="k">for</span> <span class="n">neig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">neig</span><span class="p">:</span>
+                <span class="n">N</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replacer</span><span class="p">[</span><span class="n">ids</span><span class="p">])</span>
+            <span class="n">meta_neighbours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+        <span class="c1">#changing codes dicts</span>
+        <span class="n">codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">dict_codes</span> <span class="o">=</span> <span class="n">dict_codes</span>
+
+        <span class="n">decodes</span> <span class="o">=</span> <span class="p">{</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">codes</span><span class="p">}</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">decodes</span> <span class="o">=</span> <span class="n">decodes</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_att</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">codes</span><span class="p">))</span>
+
+        <span class="c1"># Links between node and metadata type</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="c1"># Label of the link: 0 if not connected 1 if connected</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">observed</span><span class="p">)</span> <span class="o">*</span> <span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observed_id</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+                <span class="n">links</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="k">if</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">labels</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1">#list where the index is the attribute and the element is an array of the nodes that are connected to the same attribute</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">N_att</span><span class="p">):</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">neighbours_meta</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">links</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">][:,</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_att_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">att</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="p">))]</span>
+
+        <span class="n">im</span><span class="o">.</span><span class="n">links</span> <span class="o">=</span> <span class="n">links</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">N_labels</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1">#connected or disconnected</span>
+
+        <span class="c1">#masks list to know wich links have label r (that is the index of the list)</span>
+        <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">labels</span><span class="o">==</span><span class="n">r</span><span class="p">)[:,</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">im</span><span class="o">.</span><span class="n">masks_label_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+
+        <span class="c1"># update meta related nodes attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_neighbours_inclusives</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">im</span><span class="p">)]</span> <span class="o">=</span> <span class="p">[[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">L</span><span class="p">]</span> <span class="k">for</span> <span class="n">L</span> <span class="ow">in</span> <span class="n">meta_neighbours</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.save_nodes_layer">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.save_nodes_layer">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_nodes_layer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        It saves the nodes_layer object</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        dir: str</span>
+<span class="sd">            Directory where the json with the nodes_layer information will be saved</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">save_nodes_layer_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">dir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="nodes_layer.load_nodes_layer_from_file">
+<a class="viewcode-back" href="../../../Classes.html#BiMMSBM.core.nodes_layer.load_nodes_layer_from_file">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">load_nodes_layer_from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">json_dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        It loads the nodes_layer object from a JSON file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        dir: str</span>
+<span class="sd">            Directory where the json with the nodes_layer information is saved</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_dir</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nodes_info</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;metadata_exclusives&quot;</span><span class="p">]:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">add_exclusive_metadata</span><span class="p">(</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;metadata_inclusives&quot;</span><span class="p">]:</span>
+            <span class="n">layer</span><span class="o">.</span><span class="n">add_inclusive_metadata</span><span class="p">(</span><span class="o">**</span><span class="n">m</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">layer</span> </div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

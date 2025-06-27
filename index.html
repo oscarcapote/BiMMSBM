@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BiMMSBM &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=27c3e253"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Classes" href="Classes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">BiMMSBM</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bimmsbm">
+<h1>BiMMSBM<a class="headerlink" href="#bimmsbm" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="https://www.python.org/downloads/"><img alt="Python Version" src="https://img.shields.io/badge/python-3.5%2B-blue.svg" /></a> <a class="reference external" href="https://oscarcapote.github.io/BiMMSBM/index.html"><img alt="Documentation" src="https://img.shields.io/badge/docs-latest-brightgreen.svg" /></a></p>
+<p>A Python library for implementing Mixed-Membership Stochastic Block Models (MMSBM) with metadata integration for bipartite network analysis and link prediction.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This library provides tools for finding membership factors and connection probabilities in bipartite networks by incorporating node metadata. It implements the Mixed-Membership Stochastic Block Model (MMSBM) to find the most plausible parameters that fit a dataset of links between nodes, with the ability to leverage user metadata for improved link prediction.</p>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Bipartite network analysis with metadata integration</p></li>
+<li><p>Bayesian inference using Expectation Maximization (EM) algorithm</p></li>
+<li><p>Adaptive metadata importance through hyperparameters</p></li>
+<li><p>High-performance implementation with optional Numba acceleration</p></li>
+</ul>
+</section>
+<section id="installation-of-requirements">
+<h2>Installation of requirements<a class="headerlink" href="#installation-of-requirements" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Python &gt;= 3.5</p></li>
+<li><p>Required packages:
+- pandas
+- numpy</p></li>
+<li><p>Optional but recommended:
+- numba (for performance optimization)</p></li>
+</ul>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>The library can be used for link prediction in bipartite complex networks where you have:
+- Two types of nodes (e.g., users and items, politicians and bills …)
+- Labeled links representing ratings, votes, preferences, or connections
+- Optional node metadata/attributes</p>
+<section id="basic-example">
+<h3>Basic Example<a class="headerlink" href="#basic-example" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">BiMMSBM</span> <span class="k">as</span> <span class="nn">sbm</span>
+
+<span class="c1"># Create a sample dataset</span>
+<span class="n">df_politicians</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+   <span class="s2">&quot;legislator&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Pedro&quot;</span><span class="p">,</span> <span class="s2">&quot;Santiago&quot;</span><span class="p">,</span> <span class="s2">&quot;Alberto&quot;</span><span class="p">,</span> <span class="s2">&quot;Yolanda&quot;</span><span class="p">],</span>
+   <span class="s2">&quot;Party&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;PSOE&quot;</span><span class="p">,</span> <span class="s2">&quot;VOX&quot;</span><span class="p">,</span> <span class="s2">&quot;PP&quot;</span><span class="p">,</span> <span class="s2">&quot;Sumar&quot;</span><span class="p">],</span>
+   <span class="s2">&quot;Movies_preferences&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Action|Drama&quot;</span><span class="p">,</span> <span class="s2">&quot;Belic&quot;</span><span class="p">,</span> <span class="s2">&quot;Belic|Comedy&quot;</span><span class="p">,</span> <span class="s2">&quot;Comedy|Drama&quot;</span><span class="p">]</span>
+<span class="p">})</span>
+
+<span class="c1"># Initialize nodes layer with 9 groups</span>
+<span class="n">politicians</span> <span class="o">=</span> <span class="n">sbm</span><span class="o">.</span><span class="n">nodes_layer</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s2">&quot;legislator&quot;</span><span class="p">,</span> <span class="n">df_politicians</span><span class="p">)</span>
+
+<span class="c1"># Add exclusive metadata (Party)</span>
+<span class="n">lambda_party</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">parties</span> <span class="o">=</span> <span class="n">politicians</span><span class="o">.</span><span class="n">add_exclusive_metadata</span><span class="p">(</span><span class="n">lambda_party</span><span class="p">,</span> <span class="s2">&quot;Party&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add inclusive metadata (Movie preferences)</span>
+<span class="n">lambda_movies</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">Tau_movies</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="n">politicians</span><span class="o">.</span><span class="n">add_inclusive_metadata</span><span class="p">(</span><span class="n">lambda_movies</span><span class="p">,</span> <span class="s2">&quot;Movies_preferences&quot;</span><span class="p">,</span> <span class="n">Tau_movies</span><span class="p">)</span>
+
+<span class="c1">#Dataframe of bills</span>
+<span class="n">df_bills</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;bill&quot;</span><span class="p">:[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span><span class="s2">&quot;D&quot;</span><span class="p">],</span>
+                           <span class="s2">&quot;Year&quot;</span><span class="p">:[</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">2020</span><span class="p">,</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">2022</span><span class="p">]})</span>
+<span class="c1">#Number of groups</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="c1">#Creating the bills layer</span>
+<span class="n">bills</span> <span class="o">=</span> <span class="n">sbm</span><span class="o">.</span><span class="n">nodes_layer</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="s2">&quot;bill&quot;</span><span class="p">,</span><span class="n">df_bills</span><span class="p">)</span>
+
+<span class="c1">#Dataframe of votes</span>
+<span class="n">df_votes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">{</span><span class="s2">&quot;legislator&quot;</span><span class="p">:[</span><span class="s2">&quot;Pedro&quot;</span><span class="p">,</span><span class="s2">&quot;Pedro&quot;</span><span class="p">,</span><span class="s2">&quot;Pedro&quot;</span><span class="p">,</span><span class="s2">&quot;Santiago&quot;</span><span class="p">,</span><span class="s2">&quot;Santiago&quot;</span><span class="p">,</span><span class="s2">&quot;Santiago&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;Alberto&quot;</span><span class="p">,</span> <span class="s2">&quot;Alberto&quot;</span><span class="p">,</span> <span class="s2">&quot;Alberto&quot;</span><span class="p">,</span> <span class="s2">&quot;Yolanda&quot;</span><span class="p">,</span> <span class="s2">&quot;Yolanda&quot;</span><span class="p">,</span> <span class="s2">&quot;Yolanda&quot;</span><span class="p">],</span>
+                        <span class="s2">&quot;bill&quot;</span><span class="p">:[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>  <span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span>  <span class="s2">&quot;B&quot;</span><span class="p">,</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,],</span>
+                        <span class="s2">&quot;votes&quot;</span><span class="p">:[</span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">,</span>  <span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span>
+                                 <span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="s2">&quot;Yes&quot;</span><span class="p">,</span>  <span class="s2">&quot;Yes&quot;</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">,</span><span class="s2">&quot;No&quot;</span><span class="p">]})</span>
+<span class="c1">#Creating the BiNet object</span>
+<span class="n">votes</span> <span class="o">=</span> <span class="n">sbm</span><span class="o">.</span><span class="n">BiNet</span><span class="p">(</span><span class="n">df_votes</span><span class="p">,</span><span class="s2">&quot;votes&quot;</span><span class="p">,</span><span class="n">nodes_a</span><span class="o">=</span><span class="n">bills</span><span class="p">,</span><span class="n">nodes_b</span><span class="o">=</span><span class="n">politicians</span><span class="p">)</span>
+
+<span class="c1">#Fitting the model</span>
+<span class="c1">## Initialize the EM algorithm by generating the parameters</span>
+<span class="n">votes</span><span class="o">.</span><span class="n">init_EM</span><span class="p">()</span>
+
+<span class="c1">## Running the EM algorithm for 100 iterations and check the convergence every 10 steps</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+   <span class="n">votes</span><span class="o">.</span><span class="n">EM_step</span><span class="p">()</span>
+   <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">converges</span> <span class="o">=</span> <span class="n">votes</span><span class="o">.</span><span class="n">converges</span><span class="p">()</span>
+      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> - Convergence: </span><span class="si">{</span><span class="n">converges</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">converges</span><span class="p">:</span>
+         <span class="k">break</span>
+
+<span class="c1">#Getting the accuracy</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">votes</span><span class="o">.</span><span class="n">get_accuracy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="how-it-works">
+<h2>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading"></a></h2>
+<section id="the-link-prediction-problem">
+<h3>The Link Prediction Problem<a class="headerlink" href="#the-link-prediction-problem" title="Link to this heading"></a></h3>
+<p>The library solves the link prediction problem in bipartite complex networks using the Mixed-Membership Stochastic Block Model. This model assumes that:</p>
+<ul class="simple">
+<li><p>Nodes belong to a superposition of groups</p></li>
+<li><p>Connection probabilities depend on the groups to which nodes belong</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/bipartite.png"><img alt="_images/bipartite.png" class="align-center" src="_images/bipartite.png" style="width: 600px;" />
+</a>
+</section>
+<section id="metadata-integration">
+<h3>Metadata Integration<a class="headerlink" href="#metadata-integration" title="Link to this heading"></a></h3>
+<p>The model can be extended to handle multipartite complex networks by incorporating metadata bipartite networks. Each metadata network is described using a MMSBM, allowing for:</p>
+<ul class="simple">
+<li><p>Full metadata correlation</p></li>
+<li><p>Partial metadata correlation</p></li>
+<li><p>No metadata correlation</p></li>
+</ul>
+<a class="reference internal image-reference" href="_images/multipartite.png"><img alt="_images/multipartite.png" class="align-center" src="_images/multipartite.png" style="width: 600px;" />
+</a>
+<p>The importance of each metadata type is controlled by a hyperparameter.</p>
+<a class="reference internal image-reference" href="_images/lambdes.png"><img alt="_images/lambdes.png" class="align-center" src="_images/lambdes.png" style="width: 600px;" />
+</a>
+</section>
+</section>
+<section id="documentation-and-examples">
+<h2>Documentation and Examples<a class="headerlink" href="#documentation-and-examples" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Download it in the <a class="reference external" href="https://github.com/oscarcapote/BiMMSBM">repository</a></p></li>
+<li><p>Tutorial: See <cite>Tutorial.ipynb</cite></p></li>
+</ul>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://www.pnas.org/doi/abs/10.1073/pnas.1606316113">Accurate and scalable social recommendation using mixed-membership stochastic block models</a></p></li>
+<li><p><a class="reference external" href="https://journals.aps.org/prx/pdf/10.1103/PhysRevX.12.011010">Node Metadata Can Produce Predictability Crossovers in Network Inference Problems</a></p></li>
+</ol>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.</p>
+<p>The GNU GPL is a free, copyleft license that ensures the software remains free and open source. It requires that any derivative works must also be distributed under the same license terms.</p>
+</section>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading"></a></h2>
+<p>Oscar Fajardo Fontiveros</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Classes.html">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Classes.html#BiMMSBM.core.metadata_layer"><code class="docutils literal notranslate"><span class="pre">metadata_layer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Classes.html#BiMMSBM.core.exclusive_metadata"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Classes.html#BiMMSBM.core.inclusive_metadata"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Classes.html#BiMMSBM.core.nodes_layer"><code class="docutils literal notranslate"><span class="pre">nodes_layer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Classes.html#BiMMSBM.core.BiNet"><code class="docutils literal notranslate"><span class="pre">BiNet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="functions/index.html">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-nodes-layer-class">The <code class="docutils literal notranslate"><span class="pre">nodes_layer</span></code> Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#adding-metadata">Adding Metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#accessing-metadata-objects-by-name">Accessing Metadata Objects by Name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#binet-class">BiNet Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#using-nodes-layer-objects-to-initialize-a-binet-object">Using <code class="docutils literal notranslate"><span class="pre">nodes_layer</span></code> Objects to Initialize a <code class="docutils literal notranslate"><span class="pre">BiNet</span></code> Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-expectation-maximization-em-algorithm">The Expectation Maximization (EM) algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#running-the-em-algorithm-and-checking-convergence">Running the EM Algorithm and Checking Convergence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#checking-the-accuracy-and-getting-predictions">Checking the Accuracy and Getting Predictions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#saving-and-loading-the-parameters">Saving and Loading the Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#saving-the-parameters-with-save-mmsbm-parameters-function">Saving the Parameters with <code class="docutils literal notranslate"><span class="pre">save_MMSBM_parameters</span></code> Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#the-load-binet-from-json-and-the-init-em-from-directory-methods">The <code class="docutils literal notranslate"><span class="pre">load_BiNet_from_json</span></code> and the <code class="docutils literal notranslate"><span class="pre">init_EM_from_directory</span></code> methods</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Classes.html" class="btn btn-neutral float-right" title="Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

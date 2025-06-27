@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utility Functions &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorial" href="../tutorial.html" />
+    <link rel="prev" title="Numba Functions" href="numba_functions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Classes.html">Classes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Functions.html">Functions</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Functions</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="MMSBM_functions.html">MMSBM Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numba_functions.html">Numba Functions</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Utility Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.init_P_matrix"><code class="docutils literal notranslate"><span class="pre">init_P_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.df_to_rst_table"><code class="docutils literal notranslate"><span class="pre">df_to_rst_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.add_codes"><code class="docutils literal notranslate"><span class="pre">add_codes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.finished"><code class="docutils literal notranslate"><span class="pre">finished()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.save_MMSBM_parameters"><code class="docutils literal notranslate"><span class="pre">save_MMSBM_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.save_nodes_layer_dict"><code class="docutils literal notranslate"><span class="pre">save_nodes_layer_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.save_BiNet_dict"><code class="docutils literal notranslate"><span class="pre">save_BiNet_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#functions.utils.load_EM_parameters"><code class="docutils literal notranslate"><span class="pre">load_EM_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../Functions.html">Functions</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Functions</a></li>
+      <li class="breadcrumb-item active">Utility Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/functions/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utility-functions">
+<h1>Utility Functions<a class="headerlink" href="#utility-functions" title="Link to this heading"></a></h1>
+<dl class="py function" id="module-functions.utils">
+<dt class="sig sig-object py" id="functions.utils.init_P_matrix">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">init_P_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#init_P_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.init_P_matrix" title="Link to this definition"></a></dt>
+<dd><p>Generates a normalized probability matrix</p>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>shape: int or tuple of ints</dt><dd><p>Dimension of the probability matrix</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Link to this heading"></a></h2>
+<p>A normalized probability matrix that is normalized along the last axis</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.df_to_rst_table">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">df_to_rst_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#df_to_rst_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.df_to_rst_table" title="Link to this definition"></a></dt>
+<dd><p>Converts a pandas DataFrame to a RST table format.</p>
+<section id="id1">
+<h2>Parameters:<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>df: pandas.DataFrame</dt><dd><p>The DataFrame to convert to a table.</p>
+</dd>
+<dt>title: str, default: None</dt><dd><p>The title of the table.</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns:<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>A string with the RST table format.</p>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.add_codes">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">add_codes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#add_codes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.add_codes" title="Link to this definition"></a></dt>
+<dd><p>Adds to the df property a column with an id of the value of the col_name column</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>layer</strong> (<em>node_layer</em><em>, </em><a class="reference internal" href="../Classes.html#BiMMSBM.core.BiNet" title="BiMMSBM.core.BiNet"><em>BiNet</em></a>) – Objects with a df attribute</p></li>
+<li><p><strong>col_name</strong> (<em>str</em>) – Name of the column in the df attribute that an integer id will be assigned to every different value of the column.
+This id is an integer that goes from 0 to N-1, where N is the number of different values in the col_name column.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dict_codes</strong> – Dictionary where each key is a different value of the col_name column and the value is the id integer that was assigned.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.finished">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">finished</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_old</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#finished"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.finished" title="Link to this definition"></a></dt>
+<dd><p>Returns True if A and A_old are simmilar by looking if the mean absolute difference between A and A_old is lower than a
+tolerance tol</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.save_MMSBM_parameters">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">save_MMSBM_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BiNet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'npy'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BiNet_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#save_MMSBM_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.save_MMSBM_parameters" title="Link to this definition"></a></dt>
+<dd><p>It saves the parameters into matrices in the dir directory</p>
+<section id="id3">
+<h2>Parameters:<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>BiNet: BiNet object</dt><dd><p>Bipartite network with the MMSBM initialized</p>
+</dd>
+<dt>dir: str, default: “.”</dt><dd><p>Directory where the files with the MMSBM parameters will be saved</p>
+</dd>
+<dt>matrix_format: str, default: npy</dt><dd><p>Format that the matrices parameters will be saved. It can be, npy or npz.</p>
+</dd>
+<dt>BiNet_json: boolean, default: False</dt><dd><p>If it is True, the information of the BiNet class will be saved into a json.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.save_nodes_layer_dict">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">save_nodes_layer_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#save_nodes_layer_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.save_nodes_layer_dict" title="Link to this definition"></a></dt>
+<dd><p>It saves the some information, including the dict_codes from each layer, into a json called layer_data.json</p>
+<section id="id4">
+<h2>Parameters:<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>layer: node_layer</dt><dd><p>Bipartite network object</p>
+</dd>
+<dt>dir: str</dt><dd><p>Directory where the files with the MMSBM parameters will be saved</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.save_BiNet_dict">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">save_BiNet_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BiNet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#save_BiNet_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.save_BiNet_dict" title="Link to this definition"></a></dt>
+<dd><p>It saves the some information, including the dict_codes from each layer, into a json called BiNet_data.json</p>
+<section id="id5">
+<h2>Parameters:<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>BiNet: BiNet object</dt><dd><p>Bipartite network object</p>
+</dd>
+<dt>dir: str</dt><dd><p>Directory where the files with the MMSBM parameters will be saved</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="functions.utils.load_EM_parameters">
+<span class="sig-prename descclassname"><span class="pre">functions.utils.</span></span><span class="sig-name descname"><span class="pre">load_EM_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">BiNet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/functions/utils.html#load_EM_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#functions.utils.load_EM_parameters" title="Link to this definition"></a></dt>
+<dd><p>It loads the parameters from matrices in the directory</p>
+<section id="id6">
+<h2>Parameters:<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>BiNet: BiNet object</dt><dd><p>Bipartite network with the MMSBM initialized</p>
+</dd>
+<dt>directory: str, default: “.”</dt><dd><p>Directory where the files with the MMSBM parameters will be loaded</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="numba_functions.html" class="btn btn-neutral float-left" title="Numba Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorial.html" class="btn btn-neutral float-right" title="Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

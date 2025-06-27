@@ -1,0 +1,1447 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Classes &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=27c3e253"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Functions" href="Functions.html" />
+    <link rel="prev" title="BiMMSBM" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#BiMMSBM.core.metadata_layer"><code class="docutils literal notranslate"><span class="pre">metadata_layer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.__len__"><code class="docutils literal notranslate"><span class="pre">metadata_layer.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.__str__"><code class="docutils literal notranslate"><span class="pre">metadata_layer.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.N_att"><code class="docutils literal notranslate"><span class="pre">metadata_layer.N_att</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.__init__"><code class="docutils literal notranslate"><span class="pre">metadata_layer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">metadata_layer.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">metadata_layer.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.dict_codes"><code class="docutils literal notranslate"><span class="pre">metadata_layer.dict_codes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.metadata_layer.links"><code class="docutils literal notranslate"><span class="pre">metadata_layer.links</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#BiMMSBM.core.exclusive_metadata"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.exclusive_metadata.__len__"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.exclusive_metadata.__str__"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.exclusive_metadata.__init__"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.exclusive_metadata.qka"><code class="docutils literal notranslate"><span class="pre">exclusive_metadata.qka</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.init_q_k_tau"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.init_q_k_tau()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.code_inclusive_metadata"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.code_inclusive_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.__len__"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.__str__"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.__init__"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.code_inclusive_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.init_q_k_tau()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.inclusive_metadata.q_k_tau"><code class="docutils literal notranslate"><span class="pre">inclusive_metadata.q_k_tau</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#BiMMSBM.core.nodes_layer"><code class="docutils literal notranslate"><span class="pre">nodes_layer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__contains__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__contains__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__delitem__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__delitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__getitem__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__getitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__init__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__iter__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__iter__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__len__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.__setitem__"><code class="docutils literal notranslate"><span class="pre">nodes_layer.__setitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.add_exclusive_metadata"><code class="docutils literal notranslate"><span class="pre">nodes_layer.add_exclusive_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.add_inclusive_metadata"><code class="docutils literal notranslate"><span class="pre">nodes_layer.add_inclusive_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.create_simple_layer"><code class="docutils literal notranslate"><span class="pre">nodes_layer.create_simple_layer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.dict_codes"><code class="docutils literal notranslate"><span class="pre">nodes_layer.dict_codes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.dict_decodes"><code class="docutils literal notranslate"><span class="pre">nodes_layer.dict_decodes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.load_nodes_layer_from_file"><code class="docutils literal notranslate"><span class="pre">nodes_layer.load_nodes_layer_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.read_file"><code class="docutils literal notranslate"><span class="pre">nodes_layer.read_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.save_nodes_layer"><code class="docutils literal notranslate"><span class="pre">nodes_layer.save_nodes_layer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.update_K"><code class="docutils literal notranslate"><span class="pre">nodes_layer.update_K()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.update_N"><code class="docutils literal notranslate"><span class="pre">nodes_layer.update_N()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.update_exclusives_id"><code class="docutils literal notranslate"><span class="pre">nodes_layer.update_exclusives_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.nodes_layer.update_inclusives_id"><code class="docutils literal notranslate"><span class="pre">nodes_layer.update_inclusives_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#BiMMSBM.core.BiNet"><code class="docutils literal notranslate"><span class="pre">BiNet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.__len__"><code class="docutils literal notranslate"><span class="pre">BiNet.__len__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.__str__"><code class="docutils literal notranslate"><span class="pre">BiNet.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.init_EM"><code class="docutils literal notranslate"><span class="pre">BiNet.init_EM()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.init_EM_from_directory"><code class="docutils literal notranslate"><span class="pre">BiNet.init_EM_from_directory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.EM_step"><code class="docutils literal notranslate"><span class="pre">BiNet.EM_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_log_likelihoods"><code class="docutils literal notranslate"><span class="pre">BiNet.get_log_likelihoods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_links_probabilities"><code class="docutils literal notranslate"><span class="pre">BiNet.get_links_probabilities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_predicted_labels"><code class="docutils literal notranslate"><span class="pre">BiNet.get_predicted_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_accuracy"><code class="docutils literal notranslate"><span class="pre">BiNet.get_accuracy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.deep_copying"><code class="docutils literal notranslate"><span class="pre">BiNet.deep_copying()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.converges"><code class="docutils literal notranslate"><span class="pre">BiNet.converges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4"><code class="docutils literal notranslate"><span class="pre">BiNet.EM_step()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.__getitem__"><code class="docutils literal notranslate"><span class="pre">BiNet.__getitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.__init__"><code class="docutils literal notranslate"><span class="pre">BiNet.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.__setitem__"><code class="docutils literal notranslate"><span class="pre">BiNet.__setitem__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.add_metadata_to_node"><code class="docutils literal notranslate"><span class="pre">BiNet.add_metadata_to_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.add_node"><code class="docutils literal notranslate"><span class="pre">BiNet.add_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.add_nodes_from_list"><code class="docutils literal notranslate"><span class="pre">BiNet.add_nodes_from_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.clear"><code class="docutils literal notranslate"><span class="pre">BiNet.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5"><code class="docutils literal notranslate"><span class="pre">BiNet.converges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6"><code class="docutils literal notranslate"><span class="pre">BiNet.deep_copying()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.dict_codes"><code class="docutils literal notranslate"><span class="pre">BiNet.dict_codes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7"><code class="docutils literal notranslate"><span class="pre">BiNet.get_accuracy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_all_nodes_metadata"><code class="docutils literal notranslate"><span class="pre">BiNet.get_all_nodes_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8"><code class="docutils literal notranslate"><span class="pre">BiNet.get_links_probabilities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9"><code class="docutils literal notranslate"><span class="pre">BiNet.get_log_likelihoods()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.get_node_metadata"><code class="docutils literal notranslate"><span class="pre">BiNet.get_node_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10"><code class="docutils literal notranslate"><span class="pre">BiNet.get_predicted_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11"><code class="docutils literal notranslate"><span class="pre">BiNet.init_EM()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12"><code class="docutils literal notranslate"><span class="pre">BiNet.init_EM_from_directory()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.load_BiNet_from_file"><code class="docutils literal notranslate"><span class="pre">BiNet.load_BiNet_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.load_BiNet_from_json"><code class="docutils literal notranslate"><span class="pre">BiNet.load_BiNet_from_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.remove_metadata"><code class="docutils literal notranslate"><span class="pre">BiNet.remove_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.remove_node"><code class="docutils literal notranslate"><span class="pre">BiNet.remove_node()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BiMMSBM.core.BiNet.save_BiNet"><code class="docutils literal notranslate"><span class="pre">BiNet.save_BiNet()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Classes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Classes.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-BiMMSBM.core">
+<span id="classes"></span><h1>Classes<a class="headerlink" href="#module-BiMMSBM.core" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BiMMSBM.core.</span></span><span class="sig-name descname"><span class="pre">metadata_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.metadata_layer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Principal class of nodes_layer metadata. It contains extra information about the nodes.</p>
+<dl class="simple">
+<dt>It has two subclasses:</dt><dd><ul class="simple">
+<li><p>exclusive_metadata</p></li>
+<li><p>inclusive_metadata</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – A parameter representing a lambda value.</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Metadata visibility parameter</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column in the node_layer class</p></li>
+<li><p><strong>N_att</strong> (<em>int</em>) – Number of different categorical attributes of the metadata.</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em>) – A dictionary to store codes related to the metadata.
+Codes are integers ranged from 0 to N_att-1.</p></li>
+<li><p><strong>links</strong> (<em>2D NumPy array</em>) – Array representing links between nodes and metadata using its codes.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.metadata_layer.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of different categorical attributes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.metadata_layer.__str__" title="Link to this definition"></a></dt>
+<dd><p>Returns the name of the metadata.</p>
+</dd></dl>
+
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This class provides a structure to manage metadata associated with nodes.</p>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.N_att">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">N_att</span></span><a class="headerlink" href="#BiMMSBM.core.metadata_layer.N_att" title="Link to this definition"></a></dt>
+<dd><p>Number of different categorical attributes of the metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of different categorical attributes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.metadata_layer.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the MetadataLayer instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Parameter that represent the importance of the metadata when the model is inferred.</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of different categorical attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of different categorical attributes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/metadata_layer.html#metadata_layer.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id1" title="Link to this definition"></a></dt>
+<dd><p>Returns the name of the metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Name of the metadata</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.dict_codes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_codes</span></span><a class="headerlink" href="#BiMMSBM.core.metadata_layer.dict_codes" title="Link to this definition"></a></dt>
+<dd><p>A dictionary property to store codes related to the metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary containing codes related to the metadata.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.metadata_layer.links">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">links</span></span><a class="headerlink" href="#BiMMSBM.core.metadata_layer.links" title="Link to this definition"></a></dt>
+<dd><p>Array representing links between nodes and metadata using its codes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>2D array containing the links between nodes and metadata</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="BiMMSBM.core.exclusive_metadata">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BiMMSBM.core.</span></span><span class="sig-name descname"><span class="pre">exclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/exclusive_metadata.html#exclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.exclusive_metadata" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer.metadata_layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">metadata_layer</span></code></a></p>
+<p>Class for handling exclusive metadata in a nodes layer.</p>
+<p>This class inherits from metadata_layer and adds functionality for handling
+exclusive metadata, where each node can only have one attribute from a set
+of possible attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Metadata visibility parameter</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column in the node_layer class</p></li>
+<li><p><strong>N_att</strong> (<em>int</em>) – Number of different categorical attributes of the metadata.</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em>) – A dictionary to store codes related to the metadata.
+Codes are integers ranged from 0 to N_att-1.</p></li>
+<li><p><strong>links</strong> (<em>2D NumPy array</em>) – Array representing links between nodes and metadata using its codes.</p></li>
+<li><p><strong>qka</strong> (<em>np.array</em>) – Probability matrix between groups and attributes</p></li>
+<li><p><strong>masks_att_list</strong> (<em>list</em>) – List of arrays of ints where the array number att has all the index positions of links that connects the attribute att</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.exclusive_metadata.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.exclusive_metadata.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of different categorical attributes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.exclusive_metadata.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.exclusive_metadata.__str__" title="Link to this definition"></a></dt>
+<dd><p>Returns the name of the metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.exclusive_metadata.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/exclusive_metadata.html#exclusive_metadata.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.exclusive_metadata.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialization of the exclusive_metadata class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Metadata visibility</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column in the node_layer class</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.exclusive_metadata.qka">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">qka</span></span><a class="headerlink" href="#BiMMSBM.core.exclusive_metadata.qka" title="Link to this definition"></a></dt>
+<dd><p>Probability matrix between groups and attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Matrix of probabilities between groups and attributes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BiMMSBM.core.</span></span><span class="sig-name descname"><span class="pre">inclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tau</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer.metadata_layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">metadata_layer</span></code></a></p>
+<p>Class for handling inclusive metadata in a nodes layer.</p>
+<p>This class inherits from metadata_layer and adds functionality for handling
+inclusive metadata, where each node can have multiple attributes from a set
+of possible attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Metadata visibility parameter</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column in the node_layer class</p></li>
+<li><p><strong>N_att</strong> (<em>int</em>) – Number of different categorical attributes of the metadata.</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em>) – A dictionary to store codes related to the metadata.
+Codes are integers ranged from 0 to N_att-1.</p></li>
+<li><p><strong>links</strong> (<em>2D NumPy array</em>) – Array representing links between nodes and metadata using its codes.</p></li>
+<li><p><strong>Tau</strong> (<em>int</em>) – Number of membership groups of this metadata</p></li>
+<li><p><strong>q_k_tau</strong> (<em>np.array</em>) – Probability matrix between groups, membership groups and attributes</p></li>
+<li><p><strong>neighbours_meta</strong> (<em>list</em>) – List where the index is the attribute and the element is an array of the nodes that are connected to the same attribute.</p></li>
+<li><p><strong>masks_att_list</strong> (<em>list</em>) – List of arrays of ints where the array number att has all the index positions of links that connects the attribute att</p></li>
+<li><p><strong>labels</strong> (<em>np.array</em>) – Array of labels of the links: 0 if not connected 1 if connected</p></li>
+<li><p><strong>masks_label_list</strong> (<em>list</em>) – masks list to know wich links have label r (that is the index of the list).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.init_q_k_tau">
+<span class="sig-name descname"><span class="pre">init_q_k_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tau</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata.init_q_k_tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.init_q_k_tau" title="Link to this definition"></a></dt>
+<dd><p>Initialization of the q_k_tau matrix.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.code_inclusive_metadata">
+<span class="sig-name descname"><span class="pre">code_inclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata.code_inclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.code_inclusive_metadata" title="Link to this definition"></a></dt>
+<dd><p>Code the inclusive metadata that is a string of metadata separated by inclusive_metadata._separator.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of different categorical attributes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.__str__" title="Link to this definition"></a></dt>
+<dd><p>Returns the name of the metadata.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tau</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialization of the inclusive_metadata class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Metadata visibility</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column in the node_layer class</p></li>
+<li><p><strong>Tau</strong> (<em>int</em>) – Number of membership groups of this metadata</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">code_inclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_row</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata.code_inclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id2" title="Link to this definition"></a></dt>
+<dd><p>Code the inclusive metadata that is a string of metadata separated by inclusive_metadata._separator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>meta_row</strong> (<em>str</em>) – String of metadata separated by inclusive_metadata._separator</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String of metadata ids separated by inclusive_metadata._separator</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">init_q_k_tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tau</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/inclusive_metadata.html#inclusive_metadata.init_q_k_tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id3" title="Link to this definition"></a></dt>
+<dd><p>Initialization of the q_k_tau matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>int</em>) – Number of groups</p></li>
+<li><p><strong>Tau</strong> (<em>int</em>) – Number of membership groups</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Initialized q_k_tau matrix of shape (K, Tau, N_att)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If K or Tau are not positive</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.inclusive_metadata.q_k_tau">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">q_k_tau</span></span><a class="headerlink" href="#BiMMSBM.core.inclusive_metadata.q_k_tau" title="Link to this definition"></a></dt>
+<dd><p>Probability matrix between groups, membership groups and attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Matrix of probabilities between groups, membership groups and attributes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BiMMSBM.core.</span></span><span class="sig-name descname"><span class="pre">nodes_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_info</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Base class of a layer that contains nodes</p>
+<p>Is initialized using a dataframe and can be modify it using the df attribute</p>
+<p>The rest of the columns of the dataframe can contain information (metadata) from the nodes.
+This metadata can be added as a metadata_layer object considering the network as multipartite network.
+This metadata can be classified it as exclusive_metadata (if a node only accepts one attribute) and inclusive_metadata (if the node accepts more than one attribute)</p>
+<p>See for more information of metadata: metadata_layer, exclusive_metadata and inclusive_metadata.</p>
+<p>These objects can be added into a BiNet (bipartite network) where connections between nodes_layer are considered to infer links and their labels  (see BiNet)</p>
+<p>…</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>int</em>) – Number of memberships groups for the layer.</p></li>
+<li><p><strong>node_type</strong> (<em>str</em>) – Name of the layer. It corresponds with the column where the nodes’ name are contained.</p></li>
+<li><p><strong>df</strong> (<em>pandas DataFrame</em>) – DataFrame that contains information of the nodes. It contains one column
+with the nodes’ name and the rest are its metadata.</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em>) – Dictionary with the integer id of the nodes. The key is the nodes’ name and the value its id.</p></li>
+<li><p><strong>dict_decodes</strong> (<em>dict</em>) – Dictionary with the integer id of the nodes. The key is the nodes’ id and the value its name.</p></li>
+<li><p><strong>meta_exclusives</strong> (<em>list</em><em> of </em><a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer"><em>metadata_layer</em></a>) – List with the metadata exclusives objects that contains the metadata that will be used in the inference.</p></li>
+<li><p><strong>meta_inclusives</strong> (<em>list</em><em> of </em><a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer"><em>metadata_layer</em></a>) – List with the metadata inclusives object that contains the metadata that will be used in the inference.</p></li>
+<li><p><strong>meta_neighbours_exclusives</strong> – Dictionaries of lists that contains, for each node its exclusives metadata neighbours.</p></li>
+<li><p><strong>meta_neighbours_inclusives</strong> – Dictionaries of lists that contains, for each node its inclusives metadata neighbours.</p></li>
+<li><p><strong>nodes_observed_inclusive</strong> – List of arrays for each metadata with the nodes that has assigned an attribute of the metadata</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__contains__">
+<span class="sig-name descname"><span class="pre">__contains__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__contains__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__contains__" title="Link to this definition"></a></dt>
+<dd><p>Check if a node exists in the layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_id</strong> (<em>int</em>) – Node identifier</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the node exists, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__delitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__delitem__" title="Link to this definition"></a></dt>
+<dd><p>Deletes the metadata object with the name metadata_name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata_name</strong> (<em>str</em>) – Name of the metadata</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>Returns the metadata object with the name metadata_name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata_name</strong> (<em>str</em>) – Name of the metadata</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>metadata_layer object with the name metadata_name</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer">metadata_layer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_info</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialization of the nodes_layer class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>int</em>) – Number of memberships groups for the layer.</p></li>
+<li><p><strong>nodes_name</strong> (<em>str</em>) – Name of the nodes column in the nodes_layer class</p></li>
+<li><p><strong>nodes_info</strong> (<em>str</em><em> or </em><em>pandas DataFrame</em>) – If it is a string, it is the directory of the file with the nodes information.
+If it is a DataFrame, it is the DataFrame with the nodes information.</p></li>
+<li><p><strong>separator</strong> (<em>str</em><em>, </em><em>default</em>) – Separator if the columns of the file that contains the nodes information</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em><em>, </em><em>default None</em>) – Dictionary with the integer id of the nodes. The key is the nodes’ name and the value its id.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__iter__">
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__iter__" title="Link to this definition"></a></dt>
+<dd><p>Returns an iterator over the nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterator over node IDs</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>iterator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of nodes in the layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of nodes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.__setitem__" title="Link to this definition"></a></dt>
+<dd><p>Sets the metadata object with the name metadata_name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metadata_name</strong> (<em>str</em>) – Name of the metadata</p></li>
+<li><p><strong>metadata</strong> (<a class="reference internal" href="#BiMMSBM.core.metadata_layer" title="BiMMSBM.core.metadata_layer"><em>metadata_layer</em></a>) – metadata_layer object with the name metadata_name</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.add_exclusive_metadata">
+<span class="sig-name descname"><span class="pre">add_exclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.add_exclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.add_exclusive_metadata" title="Link to this definition"></a></dt>
+<dd><p>Add exclusive_metadata object to node_layer object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata that should be in the node dataframe</p></li>
+<li><p><strong>lambda_val</strong> (<em>Float</em>) – Value of the metadata visibility</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of metadata’s type, and the values are the ids. If None, the program will generate the ids.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.add_inclusive_metadata">
+<span class="sig-name descname"><span class="pre">add_inclusive_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda_val</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Tau</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'|'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.add_inclusive_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.add_inclusive_metadata" title="Link to this definition"></a></dt>
+<dd><p>Add inclusive_metadata object to node_layer object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata that should be in the node dataframe</p></li>
+<li><p><strong>lambda_val</strong> (<em>float</em>) – Value of the metadata visibility</p></li>
+<li><p><strong>Tau</strong> (<em>Int</em>) – Number of membership groups of metadata</p></li>
+<li><p><strong>separator</strong> (<em>str</em><em>, </em><em>default: &quot;</em><em>|</em><em>&quot;</em>) – Separator that is used to differentiate the different metadata assigned for each node</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of metadata’s type,
+and the values are the ids. If None, the program will generate the ids.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.create_simple_layer">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_simple_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.create_simple_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.create_simple_layer" title="Link to this definition"></a></dt>
+<dd><p>Create a nodes_layer object from a list or DataSeries only with the known nodes and without metadata</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>K</strong> (<em>Int</em>) – Number of membership groups of nodes_layer</p></li>
+<li><p><strong>nodes_list</strong> (<em>array-like</em><em>, </em><em>DataFrame</em><em> or </em><em>DataSeries</em>) – array-like, DataFrame or DataSeries with all the nodes</p></li>
+<li><p><strong>nodes_name</strong> (<em>str</em>) – Name of the nodes type (users, movies, metabolites…) that are or will be in DataFrame</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of nodes, and the values are their ids. If None, the program will generate the ids.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.dict_codes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_codes</span></span><a class="headerlink" href="#BiMMSBM.core.nodes_layer.dict_codes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.dict_decodes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_decodes</span></span><a class="headerlink" href="#BiMMSBM.core.nodes_layer.dict_decodes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.load_nodes_layer_from_file">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_nodes_layer_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.load_nodes_layer_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.load_nodes_layer_from_file" title="Link to this definition"></a></dt>
+<dd><p>It loads the nodes_layer object from a JSON file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir</strong> (<em>str</em>) – Directory where the json with the nodes_layer information is saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.read_file">
+<span class="sig-name descname"><span class="pre">read_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.read_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.read_file" title="Link to this definition"></a></dt>
+<dd><p>Reads the nodes information from a file and returns it as a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename or path to the file containing nodes information.</p></li>
+<li><p><strong>separator</strong> (<em>str</em><em>, </em><em>default: &quot;     &quot;</em>) – Separator of the nodes DataFrame. Default is “      “.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pandas DataFrame containing nodes information.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.save_nodes_layer">
+<span class="sig-name descname"><span class="pre">save_nodes_layer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.save_nodes_layer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.save_nodes_layer" title="Link to this definition"></a></dt>
+<dd><p>It saves the nodes_layer object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir</strong> (<em>str</em>) – Directory where the json with the nodes_layer information will be saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.update_K">
+<span class="sig-name descname"><span class="pre">update_K</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">K</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.update_K"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.update_K" title="Link to this definition"></a></dt>
+<dd><p>Update the number of membership groups of nodes_layer and reinitialize the membership matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>K</strong> (<em>Int</em>) – Number of membership groups of nodes_layer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.update_N">
+<span class="sig-name descname"><span class="pre">update_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N_nodes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.update_N"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.update_N" title="Link to this definition"></a></dt>
+<dd><p>Update the number of nodes and reinitialize the membership matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>N_nodes</strong> (<em>Int</em>) – Number of nodes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.update_exclusives_id">
+<span class="sig-name descname"><span class="pre">update_exclusives_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">em</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.update_exclusives_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.update_exclusives_id" title="Link to this definition"></a></dt>
+<dd><p>Changes the ids (the integer assigned to each metadata attribute) given the dict_codes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_codes</strong> (<em>dict</em>) – Dictionary where the keys are the names of metadata’s type, and the values are the ids.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.nodes_layer.update_inclusives_id">
+<span class="sig-name descname"><span class="pre">update_inclusives_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">im</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/nodes_layer.html#nodes_layer.update_inclusives_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.nodes_layer.update_inclusives_id" title="Link to this definition"></a></dt>
+<dd><p>Changes the ids (the integer assigned to each metadata attribute) given the dict_codes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dict_codes</strong> (<em>dict Dictionary where the keys are the names</em><em> of </em><em>metadata's type</em><em>, </em><em>and the values are the ids.</em>) – If None, ids will be generated automatically.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">BiMMSBM.core.</span></span><span class="sig-name descname"><span class="pre">BiNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links_label</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ka</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nodes_a'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Kb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nodes_b'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class of a Bipartite Network, where two layers of different types of nodes are connected (users-&gt;items,
+politicians-&gt;bills, patient-&gt;microbiome…) and these links can be labeled with information of the
+interaction (ratings, votes…).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels_name</strong> (<em>str</em>) – Name of the labels column</p></li>
+<li><p><strong>N_labels</strong> (<em>int</em>) – Number of different types labels.</p></li>
+<li><p><strong>labels_array</strong> (<em>ndarray</em>) – Array with all the ids of the labels.</p></li>
+<li><p><strong>labels_name</strong> – List of the names of the diferents labels.</p></li>
+<li><p><strong>labels_training</strong> – Array with all the ids of the labels used to train the MMSBM</p></li>
+<li><p><strong>df</strong> – Dataframe with the links information, who connected to who and with which label are connected</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em>) – Dictionary with the integer ids of the labels. Keys are label names, and values are corresponding ids.</p></li>
+<li><p><strong>nodes_a</strong><strong>,</strong><strong>nodes_b</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a>) – nodes_layer objects of the nodes that are part from the bipartite network.</p></li>
+<li><p><strong>links</strong> (<em>2D-array</em>) – 2D-array with the links of the nodes that are connected</p></li>
+<li><p><strong>links_training</strong> (<em>2D-array</em>) – 2D-array with the links of the nodes that are connected used to train the MMSBM</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.__len__">
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.BiNet.__len__" title="Link to this definition"></a></dt>
+<dd><p>Returns the number of different labels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BiMMSBM.core.BiNet.__str__" title="Link to this definition"></a></dt>
+<dd><p>Returns the name of the labels column.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.init_EM">
+<span class="sig-name descname"><span class="pre">init_EM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.init_EM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.init_EM" title="Link to this definition"></a></dt>
+<dd><p>Initializes the EM algorithm to find the most plausible membership parameters of the MMSBM.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.init_EM_from_directory">
+<span class="sig-name descname"><span class="pre">init_EM_from_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.init_EM_from_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.init_EM_from_directory" title="Link to this definition"></a></dt>
+<dd><p>Initializes the EM algorithm using parameters saved in files in a specified directory.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.EM_step">
+<span class="sig-name descname"><span class="pre">EM_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.EM_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.EM_step" title="Link to this definition"></a></dt>
+<dd><p>Performs N_steps steps of the EM algorithm.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_log_likelihoods">
+<span class="sig-name descname"><span class="pre">get_log_likelihoods</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_log_likelihoods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_log_likelihoods" title="Link to this definition"></a></dt>
+<dd><p>Returns the loglikelihood of the current state of the MMSBM.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_links_probabilities">
+<span class="sig-name descname"><span class="pre">get_links_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_links_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_links_probabilities" title="Link to this definition"></a></dt>
+<dd><p>Returns the probability of each link in links.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_predicted_labels">
+<span class="sig-name descname"><span class="pre">get_predicted_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_predicted_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_predicted_labels" title="Link to this definition"></a></dt>
+<dd><p>Returns the predicted label of each link in links.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_accuracy">
+<span class="sig-name descname"><span class="pre">get_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pij</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'max_probability'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_accuracy" title="Link to this definition"></a></dt>
+<dd><p>Returns the accuracy of the predicted labels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.deep_copying">
+<span class="sig-name descname"><span class="pre">deep_copying</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.deep_copying"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.deep_copying" title="Link to this definition"></a></dt>
+<dd><p>Returns a deep copy of the BiNet instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.converges">
+<span class="sig-name descname"><span class="pre">converges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.converges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.converges" title="Link to this definition"></a></dt>
+<dd><p>Returns True if the EM algorithm has converged, False otherwise.</p>
+</dd></dl>
+
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This class provides a structure to manage bipartite networks.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">EM_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.EM_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id4" title="Link to this definition"></a></dt>
+<dd><p>Performs the N_steps number of steps to update the model parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>N_steps</strong> (<em>int</em><em>, </em><em>default: 1</em>) – Number of EM steps to be performed. Default is 1.</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This method updates the model parameters using the Expectation Maximization (EM) estimation.
+The Maximum a Posteriori algorithm is employed for iterative updates.</p>
+<p>During each step, the following updates are performed:
+- Update of nodes_a parameters (BiNet.nodes_a.theta).
+- Update of exclusive_meta and inclusive_meta for nodes_a (BiNet.nodes_a.meta.theta).
+- Update of nodes_b parameters ((BiNet.nodes_b.theta)).
+- Update of exclusive_meta and inclusive_meta for nodes_b (BiNet.nodes_b.meta.theta)..
+- Update of link probabilities (BiNet.pkl) and omega (BiNet.omega).</p>
+<p>After each step, a deep copy of the current model parameters is stored for convergence tracking.</p>
+<p>It is recommended to perform multiple EM steps to refine the model parameters.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>Returns the nodes_layer object of the specified type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nodes_type</strong> (<em>str</em>) – Name of the nodes_layer object to return.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The nodes_layer object of the specified type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer">nodes_layer</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links_label</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ka</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nodes_a'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Kb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nodes_b'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_codes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialization of a BiNet class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>links</strong> (<em>str</em><em>, </em><em>pandas DataFrame</em>) – DataFrame or directory containing the links between nodes_a and nodes_b and their labels.</p></li>
+<li><p><strong>links_label</strong> (<em>str</em>) – Name of the column where the labels are stored in the links DataFrame.</p></li>
+<li><p><strong>nodes_a</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a><em>, </em><em>str</em><em>, </em><em>DataFrame</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – One of the nodes layer that forms the bipartite network
+- If nodes_layer: Existing instance of the nodes_layer class representing the first layer.
+- If str or pd.DataFrame: If str, a directory containing the file information about nodes_a.
+- If pd.DataFrame, DataFrame with nodes_a information.
+- If None: A simple nodes_layer will be created from the information in links.</p></li>
+<li><p><strong>nodes_b</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a><em>, </em><em>str</em><em>, </em><em>DataFrame</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – One of the nodes layer that forms the bipartite network
+- If nodes_layer: Existing instance of the nodes_layer class representing the first layer.
+- If str or pd.DataFrame: If str, a directory containing the file information about nodes_b.
+- If pd.DataFrame, DataFrame with nodes_b information.
+- If None: A simple nodes_layer will be created from the information in links.</p></li>
+<li><p><strong>Ka</strong> (<em>int</em><em>, </em><em>default: 1</em>) – Number of membership groups for nodes_a layer</p></li>
+<li><p><strong>Kb</strong> (<em>int</em><em>, </em><em>default: 1</em>) – Number of membership groups for nodes_b layer</p></li>
+<li><p><strong>nodes_a_name</strong> (<em>str</em><em>, </em><em>default: nodes_a</em>) – Name of the column where the names of nodes_a are in the links DataFrame and nodes_a DataFrame</p></li>
+<li><p><strong>nodes_b_name</strong> (<em>str</em><em>, </em><em>default: nodes_b</em>) – Name of the column where the names of nodes_b are in the links DataFrame and nodes_b DataFrame</p></li>
+<li><p><strong>dict_codes</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of the labels, and the values are the ids. If None, new ids will be provided.</p></li>
+<li><p><strong>dict_codes_a</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of the nodes from nodes_a and the values are the ids. If None, new ids will be provided.</p></li>
+<li><p><strong>dict_codes_b</strong> (<em>dict</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Dictionary where the keys are the names of the nodes from nodes_b and the values are the ids. If None, new ids will be provided.</p></li>
+<li><p><strong>separator</strong> (<em>str</em><em>, </em><em>default:</em>) – Separator used to read links DataFrame file. Default is</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.__setitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.__setitem__" title="Link to this definition"></a></dt>
+<dd><p>Sets the nodes_layer object of the specified type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes_type</strong> (<em>str</em>) – Name of the nodes_layer object to set.</p></li>
+<li><p><strong>nodes_layer</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a>) – The nodes_layer object to set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.add_metadata_to_node">
+<span class="sig-name descname"><span class="pre">add_metadata_to_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.add_metadata_to_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.add_metadata_to_node" title="Link to this definition"></a></dt>
+<dd><p>Add metadata to a specific node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<em>int</em>) – Node identifier</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column</p></li>
+<li><p><strong>meta_value</strong> (<em>any</em>) – Value of the metadata</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If node_id or meta_name doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.add_node">
+<span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.add_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.add_node" title="Link to this definition"></a></dt>
+<dd><p>Add a node to the layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<em>int</em>) – Unique identifier for the node</p></li>
+<li><p><strong>node_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the node, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created node dictionary</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If node_id already exists</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.add_nodes_from_list">
+<span class="sig-name descname"><span class="pre">add_nodes_from_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.add_nodes_from_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.add_nodes_from_list" title="Link to this definition"></a></dt>
+<dd><p>Add multiple nodes from a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_list</strong> (<em>list</em>) – List of node identifiers</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all nodes and metadata from the layer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">converges</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.converges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id5" title="Link to this definition"></a></dt>
+<dd><p>Checks if the parameters have converged during the EM procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the parameters have converged, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>Convergence is determined based on the tolerance (self.tol) set for the model.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Meta Convergence:</dt><dd><ul>
+<li><p>Checks convergence for each layer’s theta and metadata parameters.</p></li>
+<li><p>Metadata parameters include zeta, q_k_tau, and omega for both inclusive and exclusive metadata.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Links Convergence:</dt><dd><ul>
+<li><p>Checks convergence for pkl (link probabilities) and omega parameters.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">deep_copying</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.deep_copying"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id6" title="Link to this definition"></a></dt>
+<dd><p>Performs a deep copy of all parameters in the EM algorithm.</p>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This method creates deep copies of various parameters to store their current states for future reference and convergence checking.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Link Parameters:</dt><dd><ul>
+<li><p>pkl_old: Deep copy of the link probabilities (self.pkl).</p></li>
+<li><p>omega_old: Deep copy of omega (self.omega).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Metadata parameters (for each layer):</dt><dd><ul>
+<li><p>theta_old: Deep copy of the layer’s theta parameters (self.theta).</p></li>
+<li><dl class="simple">
+<dt>Inclusive metadata:</dt><dd><ul>
+<li><p>zeta_old: Deep copy of zeta (meta.zeta).</p></li>
+<li><p>q_k_tau_old: Deep copy of q_k_tau (meta.q_k_tau).</p></li>
+<li><p>omega_old: Deep copy of omega (meta.omega).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Exclusive metadata:</dt><dd><ul>
+<li><p>qka_old: Deep copy of qka (meta.qka).</p></li>
+<li><p>omega_old: Deep copy of omega (meta.omega).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.dict_codes">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dict_codes</span></span><a class="headerlink" href="#BiMMSBM.core.BiNet.dict_codes" title="Link to this definition"></a></dt>
+<dd><p>Dictionary with the integer ids of the labels. Keys are label names, and values are corresponding ids.
+The ids go from 0 to N_labels-1.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">get_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicted_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pij</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'max_probability'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id7" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Computes the ratio of correctly predicted labels of the model given the MMSBM parameters. They can be measured by different estimators:</dt><dd><p>-max_probability: The predicted label will be the most plausible label
+-mean: The predicted label will be the mean</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>predicted_labels</strong> (<em>array-like</em><em>, </em><em>default:None.</em>) – Array-like with the predicted labels ids given by the MMSBM. If None, predictions will be generated using</p></li>
+<li><p><strong>estimator.</strong> (<em>the specified links and</em>)</p></li>
+<li><p><strong>test_labels</strong> (<em>array-like</em><em>, </em><em>default:None.</em>) – List or array with the observed labels. If None, labels from self.labels_array are taken given pos_test_labels</p></li>
+<li><p><strong>links</strong> (<em>ndarray</em><em> of </em><em>1</em><em> or </em><em>2 dimensions</em><em>, </em><em>pandas DataFrame</em><em>, </em><em>default: None</em>) – <p>Array with links for which label probabilities are computed.
+-If a 2d-array, the first column must contain the ids from nodes_a layer and the second</p>
+<blockquote>
+<div><p>column must contain the ids from nodes_b layers.</p>
+</div></blockquote>
+<p>-If a 1d-array, it must contain the positions of the links list from self.df attribute
+-If a pandas DataFrame, it must contain at least two columns with the name of the nodes’ layers</p>
+<blockquote>
+<div><p>and a column with the same name as the labels column from BiNet.df.</p>
+</div></blockquote>
+<p>-If None, self.links_training will be used.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>estimator: {“max_probability”,”mean”}, default: max_probability</dt><dd><p>Estimator used to get the predicted labels:
+-max_probability: Selects the most plausible label
+-mean: Selects the mean label (sum [Pij(l)*l])</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>accuracy</strong> – Ratio of correctly predicted labels to the total number of predicted labels.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_all_nodes_metadata">
+<span class="sig-name descname"><span class="pre">get_all_nodes_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_all_nodes_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_all_nodes_metadata" title="Link to this definition"></a></dt>
+<dd><p>Get metadata values for all nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary mapping node IDs to their metadata values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If meta_name doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">get_links_probabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_links_probabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id8" title="Link to this definition"></a></dt>
+<dd><p>Computes the label probabilities for links in the trained BiNet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>links</strong> (<em>ndarray</em><em> or </em><em>DataFrame</em><em>, </em><em>optional</em><em>, </em><em>default: None</em>) – Array or DataFrame with links for which probabilities are computed.
+- If 2D array, the first column should contain node IDs from nodes_a layer, and the second column from nodes_b layer.
+- If 1D array, it should contain positions of links in self.df attribute.
+- If DataFrame, it should have at least two columns with names of the nodes layers.
+- If None, self.links_training will be used.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Pij_r</strong> – Pij_r[l, r] is the probability that link l has label r.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray, shape (len(links), self.N_labels)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">get_log_likelihoods</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_log_likelihoods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id9" title="Link to this definition"></a></dt>
+<dd><p>It computes the log_likelihoods from every bipartite network of the multipartite network, that means the log_likelihoods of the BiNet network and the log_likelihoods of the metadata networks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.get_node_metadata">
+<span class="sig-name descname"><span class="pre">get_node_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_node_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.get_node_metadata" title="Link to this definition"></a></dt>
+<dd><p>Get metadata value for a specific node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<em>int</em>) – Node identifier</p></li>
+<li><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The metadata value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>any</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If node_id or meta_name doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">get_predicted_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">links</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Pij</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'max_probability'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_return</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'df'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.get_predicted_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id10" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Computes the predicted labels of the model based on the MMSBM parameters, using different estimators. They can be measured by different estimators:</dt><dd><ul class="simple">
+<li><p>max_probability: The predicted label will be the most plausible label</p></li>
+<li><p>mean: The predicted label will be the mean</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>links</strong> (<em>ndarray</em><em> of </em><em>1</em><em> or </em><em>2 dimensions</em><em>, </em><em>pandas DataFrame</em><em>, </em><em>default: None</em>) – <p>Array with links for which label probabilities are computed.
+-If a 2d-array, the first column must contain the ids from nodes_a layer and the second</p>
+<blockquote>
+<div><p>column must contain the ids from nodes_b layers.</p>
+</div></blockquote>
+<p>-If a 1d-array, it must contain the positions of the links list from self.df attribute
+-If a pandas DataFrame, it must contain at least two columns with the name of the nodes’ layers</p>
+<blockquote>
+<div><p>and a column with the same name as the labels column from BiNet.df.</p>
+</div></blockquote>
+<p>-If None, self.links_training will be used.</p>
+</p></li>
+<li><p><strong>Pij</strong> (<em>ndarray</em><em>, </em><em>default: None</em>) – Array with the probabilities of the links to have each label. If None, it will compute the probabilities using self.get_links_probabilities(links).</p></li>
+<li><p><strong>estimator</strong> (<em>{&quot;max_probability&quot;</em><em>,</em><em>&quot;average&quot;}</em><em>, </em><em>default: max_probability</em>) – Estimator used to get predicted labels:
+- “max_probability”: Selects the most plausible label.
+- “average”: Selects the average label (sum [Pij(l) * l]).</p></li>
+<li><p><strong>to_return</strong> (<em>{&quot;df&quot;</em><em>,</em><em>&quot;ids&quot;</em><em>, </em><em>&quot;both&quot;}</em><em>, </em><em>default: df</em>) – <dl class="simple">
+<dt>Option to choose how the predicted labels will be returned.</dt><dd><p>-“df”: Returns a DataFrame with columns for nodes from both layers and an additional column called “Predicted + self.label_name”.
+-“ids”: Returns a ndarray of ints with the ids of the predicted labels.
+-“both”: Returns both the DataFrame and the ndarray with the ids in this order.</p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>labels_id</strong> (<em>ndarray</em>) – Predicted labels id.</p></li>
+<li><p><strong>labels_df</strong> (<em>pandas DataFrame</em>) – DataFrame whose columns are nodes_a, nodes_b and the predicted labels</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>If Pij is provided, it will use the given probabilities; otherwise, it will compute probabilities using self.get_links_probabilities(links).</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">init_EM</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.init_EM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id11" title="Link to this definition"></a></dt>
+<dd><p>Initialize the EM algorithm to get the most plausible membership parameters of the MMSBM</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default: 0.001</em>) – Tolerance of the algorithm when finding the parameters.</p></li>
+<li><p><strong>seed</strong> (<em>int</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – Seed to generate the matrices. Is initialized using the np.random.RandomState(seed) method.</p></li>
+<li><p><strong>training</strong> (<em>DataFrame</em><em>, </em><em>list</em><em>, </em><em>default: None</em>) – <ul>
+<li><p>If DataFrame: DataFrame with the links used to train the MMSBM.</p></li>
+<li><p>If list or ndarray: List or array containing the indexes of the links list used for training.</p></li>
+<li><p>If None: Uses self.links and self.labels_array.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This method initializes the EM algorithm by setting up probability matrices (BiNet.pkl), memberships (BiNet.nodes_a.theta and BiNet.nodes_b.theta), and managing
+links to train. The tolerance, seed, and training data can be specified to customize the initialization process.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">init_EM_from_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.init_EM_from_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id12" title="Link to this definition"></a></dt>
+<dd><p>Initialize the Expectation Maximization (EM) algorithm to obtain the most plausible membership parameters of the
+Mixed-Membership Stochastic Block Model (MMSBM) using parameters saved in files located in a specified directory.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>dir: str, default: “.”</dt><dd><p>Directory where the files with the MMSBM parameters will be loaded.</p>
+</dd>
+<dt>training: pd.DataFrame, list, ndarray, default: None</dt><dd><ul class="simple">
+<li><p>If pd.DataFrame: DataFrame containing the training links and labels.</p></li>
+<li><p>If list or ndarray: List or array containing the positions of the links list from self.df attribute.</p></li>
+<li><p>If None: Uses self.links_training and self.labels_training.</p></li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.load_BiNet_from_file">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_BiNet_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.load_BiNet_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.load_BiNet_from_file" title="Link to this definition"></a></dt>
+<dd><p>It loads the BiNet data from a JSON file in dir</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dir</strong> (<em>str</em>) – Directory where the JSON with the BiNet information is saved</p></li>
+<li><p><strong>layers</strong> (<em>bool</em><em>, </em><em>default: True</em>) – If True, it loads the nodes_layer objects from the JSON file in the same directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.load_BiNet_from_json">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_BiNet_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">links_label</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_a_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_b_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\t'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.load_BiNet_from_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.load_BiNet_from_json" title="Link to this definition"></a></dt>
+<dd><p>Load a BiNet instance from a JSON file containing MMSBM parameters and link information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_file</strong> (<em>str</em>) – Path to the JSON files containing MMSBM parameters.</p></li>
+<li><p><strong>links</strong> (<em>str</em><em>, </em><em>pandas DataFrame</em>) – DataFrame or directory containing the links between nodes_a and nodes_b and their labels.</p></li>
+<li><p><strong>links_label</strong> (<em>array-like</em>) – Array-like object representing the labels corresponding to the links.</p></li>
+<li><p><strong>nodes_a</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a><em>, </em><em>str</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – <ul>
+<li><p>If nodes_layer: Existing instance of the nodes_layer class representing the first layer.</p></li>
+<li><p>If str or pd.DataFrame: If str, a name for the first layer. If pd.DataFrame, DataFrame with nodes and attributes.</p></li>
+<li><p>If None: The first layer will be created later.</p></li>
+</ul>
+</p></li>
+<li><p><strong>nodes_b</strong> (<a class="reference internal" href="#BiMMSBM.core.nodes_layer" title="BiMMSBM.core.nodes_layer"><em>nodes_layer</em></a><em>, </em><em>str</em><em>, </em><em>pd.DataFrame</em><em>, </em><em>None</em><em>, </em><em>default: None</em>) – <ul>
+<li><p>If nodes_layer: Existing instance of the nodes_layer class representing the second layer.</p></li>
+<li><p>If str or pd.DataFrame: If str, a name for the second layer. If pd.DataFrame, DataFrame with nodes and attributes.</p></li>
+<li><p>If None: The second layer will be created later as a simple layer (no metadata)</p></li>
+</ul>
+</p></li>
+<li><p><strong>separator</strong> (<em>str</em><em>, </em><em>default: &quot;      &quot;</em>) – Separator used in the provided JSON file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>BN</strong> – Instance of the BiNet class loaded from the JSON file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#BiMMSBM.core.BiNet" title="BiMMSBM.core.BiNet.BiNet">BiNet</a></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This class method allows loading a BiNet instance from a JSON file, along with links and labels. It constructs both
+nodes layers’ objects with metadata initialized based on the provided information.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.remove_metadata">
+<span class="sig-name descname"><span class="pre">remove_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.remove_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.remove_metadata" title="Link to this definition"></a></dt>
+<dd><p>Remove a metadata column from all nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>meta_name</strong> (<em>str</em>) – Name of the metadata column</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If meta_name doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.remove_node">
+<span class="sig-name descname"><span class="pre">remove_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.remove_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.remove_node" title="Link to this definition"></a></dt>
+<dd><p>Remove a node from the layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_id</strong> (<em>int</em>) – Node identifier</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>KeyError</strong> – If node_id doesn’t exist</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="BiMMSBM.core.BiNet.save_BiNet">
+<span class="sig-name descname"><span class="pre">save_BiNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/BiMMSBM/core/BiNet.html#BiNet.save_BiNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#BiMMSBM.core.BiNet.save_BiNet" title="Link to this definition"></a></dt>
+<dd><p>It saves the BiNet data into a JSON file in dir. If layers==True,
+it saves the nodes_layer objects in JSONs files in the same directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dir</strong> (<em>str</em>) – Directory where the JSON with the BiNet information will be saved</p></li>
+<li><p><strong>layers</strong> (<em>bool</em><em>, </em><em>default: True</em>) – If True, it saves the nodes_layer objects in JSONs files in the same directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="BiMMSBM" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Functions.html" class="btn btn-neutral float-right" title="Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>functions.MMSBM_functions &mdash; BiMMSBM 04/06/2025 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=27c3e253"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            BiMMSBM
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Classes.html">Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Functions.html">Functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">BiMMSBM</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">functions.MMSBM_functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for functions.MMSBM_functions</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">BiMMSBM.functions.numba_functions</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="n">numba_imported</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">numba_imported</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># @jit(nopython=True,locals=dict(i=int64,j=int64,L=int64,K=int64,Na=int64,Nb=int64,suma=double))</span>
+<div class="viewcode-block" id="omega_comp_arrays">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.omega_comp_arrays">[docs]</a>
+<span class="k">def</span> <span class="nf">omega_comp_arrays</span><span class="p">(</span><span class="n">Na</span><span class="p">,</span><span class="n">Nb</span><span class="p">,</span><span class="n">p_kl</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">eta</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">links_array</span><span class="p">,</span><span class="n">links_ratings</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the omega matrix for a bipartite network.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Na : int</span>
+<span class="sd">        Number of nodes in layer a</span>
+<span class="sd">    Nb : int</span>
+<span class="sd">        Number of nodes in layer b</span>
+<span class="sd">    p_kl : np.array</span>
+<span class="sd">        Probability matrix between groups k and l</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        Membership matrix for layer a</span>
+<span class="sd">    eta : np.array</span>
+<span class="sd">        Membership matrix for layer b</span>
+<span class="sd">    K : int</span>
+<span class="sd">        Number of groups in layer a</span>
+<span class="sd">    L : int</span>
+<span class="sd">        Number of groups in layer b</span>
+<span class="sd">    links_array : np.array</span>
+<span class="sd">        Array containing the links between nodes</span>
+<span class="sd">    links_ratings : np.array</span>
+<span class="sd">        Array containing the ratings/labels for each link</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The computed omega matrix of shape (Na, Nb, K, L)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#new_omega = np.array(omega)</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Na</span><span class="p">,</span><span class="n">Nb</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">L</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">link</span>  <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">links_ratings</span><span class="p">)):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">links_array</span><span class="p">[</span><span class="n">link</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">links_array</span><span class="p">[</span><span class="n">link</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rating</span> <span class="o">=</span> <span class="n">links_ratings</span><span class="p">[</span><span class="n">link</span><span class="p">]</span>
+        <span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="n">p_kl</span><span class="p">[:,:,</span><span class="n">rating</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="nd">@np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">eta</span><span class="p">[</span><span class="n">j</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,:,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,:,:]</span> <span class="o">/=</span> <span class="n">suma</span><span class="o">+</span><span class="mf">1e-16</span>
+    <span class="k">return</span> <span class="n">omega</span></div>
+
+
+<span class="c1"># @jit(nopython=True,locals=dict(i=int64,a=int64,k=int64,link=int64,suma=double),parallel=True)</span>
+<div class="viewcode-block" id="omega_comp_arrays_exclusive">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.omega_comp_arrays_exclusive">[docs]</a>
+<span class="k">def</span> <span class="nf">omega_comp_arrays_exclusive</span><span class="p">(</span><span class="n">q_ka</span><span class="p">,</span><span class="n">N_att</span><span class="p">,</span><span class="n">theta</span><span class="p">,</span><span class="n">N_nodes</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">metas_links_arrays_nodes</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the omega matrix for exclusive metadata.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    q_ka : np.array</span>
+<span class="sd">        Probability matrix between groups k and attributes a</span>
+<span class="sd">    N_att : int</span>
+<span class="sd">        Number of attributes</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        Membership matrix for nodes</span>
+<span class="sd">    N_nodes : int</span>
+<span class="sd">        Number of nodes</span>
+<span class="sd">    K : int</span>
+<span class="sd">        Number of groups</span>
+<span class="sd">    metas_links_arrays_nodes : np.array</span>
+<span class="sd">        Array containing the links between nodes and metadata</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The computed omega matrix of shape (N_nodes, N_att, K)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_nodes</span><span class="p">,</span><span class="n">N_att</span><span class="p">,</span><span class="n">K</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metas_links_arrays_nodes</span><span class="p">)):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">metas_links_arrays_nodes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">metas_links_arrays_nodes</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+            <span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">q_ka</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">a</span><span class="p">]</span>
+            <span class="n">s</span> <span class="o">+=</span><span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">k</span><span class="p">]</span>
+        <span class="n">omega</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">a</span><span class="p">,:]</span> <span class="o">/=</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="n">omega</span></div>
+
+
+
+<div class="viewcode-block" id="theta_comp_arrays_multilayer">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.theta_comp_arrays_multilayer">[docs]</a>
+<span class="k">def</span> <span class="nf">theta_comp_arrays_multilayer</span><span class="p">(</span><span class="n">BiNet</span><span class="p">,</span><span class="n">layer</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the membership matrix for a layer in a bipartite network.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    BiNet : BiNet</span>
+<span class="sd">        The bipartite network object</span>
+<span class="sd">    layer : str, default=&quot;a&quot;</span>
+<span class="sd">        The layer to compute the membership matrix for (&quot;a&quot; or &quot;b&quot;)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The computed membership matrix for the specified layer</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    TypeError</span>
+<span class="sd">        If layer is not &quot;a&quot; or &quot;b&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#new_theta = np.zeros((N_nodes,K))</span>
+
+    <span class="k">if</span> <span class="n">layer</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
+        <span class="n">na</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_a</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_a</span>
+        <span class="n">non_observed</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">non_observed_nodes_a</span>
+    <span class="k">elif</span> <span class="n">layer</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span>
+        <span class="n">na</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">nodes_b</span>
+        <span class="n">observed</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_b</span>
+        <span class="n">non_observed</span> <span class="o">=</span> <span class="n">BiNet</span><span class="o">.</span><span class="n">non_observed_nodes_b</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Layer must be &#39;a&#39; or &#39;b&#39;&quot;</span><span class="p">)</span>
+
+    <span class="c1">#Nodes b</span>
+<span class="c1">#     nb = BiNet.nodes_b</span>
+
+    <span class="c1">##Binet</span>
+    <span class="n">new_theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">na</span><span class="p">),</span><span class="n">na</span><span class="o">.</span><span class="n">K</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="o">==</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span>
+        <span class="n">new_theta</span><span class="p">[</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_a</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">sum_omega_13</span><span class="p">(</span><span class="n">BiNet</span><span class="o">.</span><span class="n">omega</span><span class="p">[</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_a</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_b</span><span class="p">,:,:])</span><span class="c1">#BiNet.omega.sum(axis=1).sum(axis=2)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_theta</span><span class="p">[</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_b</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">sum_omega_02</span><span class="p">(</span><span class="n">BiNet</span><span class="o">.</span><span class="n">omega</span><span class="p">[</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_a</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span><span class="n">BiNet</span><span class="o">.</span><span class="n">observed_nodes_b</span><span class="p">,:,:])</span><span class="c1">#BiNet.omega.sum(axis=1).sum(axis=2)</span>
+
+    <span class="c1">##Meta exclusive</span>
+    <span class="n">N_metas</span> <span class="o">=</span> <span class="n">na</span><span class="o">.</span><span class="n">N_meta_exclusive</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">na</span><span class="o">.</span><span class="n">meta_exclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">new_theta</span> <span class="o">+=</span> <span class="n">sum_omega_ax_lambda</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">omega</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">meta</span><span class="o">.</span><span class="n">lambda_val</span><span class="p">)</span>
+<span class="c1">#         new_theta += meta.omega.sum(axis=1)*meta.lambda_val</span>
+
+
+    <span class="c1">##Meta inclusive</span>
+    <span class="n">N_metas</span> <span class="o">=</span> <span class="n">na</span><span class="o">.</span><span class="n">N_meta_inclusive</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">na</span><span class="o">.</span><span class="n">meta_inclusives</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+        <span class="n">new_theta</span> <span class="o">+=</span> <span class="n">sum_omega_13_lambda</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">omega</span><span class="p">,</span><span class="n">meta</span><span class="o">.</span><span class="n">lambda_val</span><span class="p">)</span><span class="c1">#meta.omega.sum(axis=1).sum(axis=2)*meta.lambda_val</span>
+        <span class="c1"># new_theta += meta.omega.sum(axis=1).sum(axis=2)*meta.lambda_val</span>
+
+    <span class="c1">##Denominator</span>
+    <span class="n">new_theta</span> <span class="o">/=</span> <span class="n">na</span><span class="o">.</span><span class="n">denominators</span>
+
+    <span class="c1">##if no metadata we put means in cold starts</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">na</span><span class="o">.</span><span class="n">_has_metas</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">non_observed</span><span class="p">)</span><span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">new_theta</span><span class="p">[</span><span class="n">observed</span><span class="p">,:],</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">new_theta</span><span class="p">[</span><span class="n">non_observed</span><span class="p">]</span> <span class="o">=</span> <span class="n">means</span>
+
+    <span class="k">return</span> <span class="n">new_theta</span></div>
+
+
+
+<div class="viewcode-block" id="theta_comp_array">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.theta_comp_array">[docs]</a>
+<span class="k">def</span> <span class="nf">theta_comp_array</span><span class="p">(</span><span class="n">N_nodes</span><span class="p">,</span><span class="n">K</span><span class="p">,</span><span class="n">omega</span><span class="p">,</span><span class="n">denominators</span><span class="p">,</span><span class="n">links</span><span class="p">,</span><span class="n">masks_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the membership matrix of a nodes layer with no metadata.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    N_nodes : int</span>
+<span class="sd">        Number of nodes</span>
+<span class="sd">    K : int</span>
+<span class="sd">        Number of groups</span>
+<span class="sd">    omega : np.array</span>
+<span class="sd">        The omega matrix</span>
+<span class="sd">    denominators : np.array</span>
+<span class="sd">        Array of denominators for normalization</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        Array containing the links</span>
+<span class="sd">    masks_list : list</span>
+<span class="sd">        List of masks for each attribute</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The computed membership matrix of shape (N_nodes, K)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">N_nodes</span><span class="p">,</span><span class="n">K</span><span class="p">))</span>
+    <span class="n">theta_unfold</span> <span class="o">=</span> <span class="n">omega</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],:,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">att</span><span class="p">,</span><span class="n">mask</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">masks_list</span><span class="p">):</span>
+        <span class="n">theta</span><span class="p">[</span><span class="n">att</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">theta_unfold</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">theta</span> <span class="o">/=</span> <span class="n">denominators</span><span class="c1">#[:,np.newaxis]</span>
+    <span class="k">return</span> <span class="n">theta</span></div>
+
+
+<div class="viewcode-block" id="q_ka_comp_arrays">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.q_ka_comp_arrays">[docs]</a>
+<span class="k">def</span> <span class="nf">q_ka_comp_arrays</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">N_att</span><span class="p">,</span><span class="n">omega</span><span class="p">,</span><span class="n">links</span><span class="p">,</span><span class="n">masks_att_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the probability matrix between nodes in group k and attribute a.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    K : int</span>
+<span class="sd">        Number of groups</span>
+<span class="sd">    N_att : int</span>
+<span class="sd">        Number of attributes</span>
+<span class="sd">    omega : np.array</span>
+<span class="sd">        The omega matrix of the BiNet</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        The links of the BiNet</span>
+<span class="sd">    masks_att_list : list</span>
+<span class="sd">        A list of masks for each attribute</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The probability matrix of shape (K, N_att) between nodes in group k and attribute a</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">qka2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span><span class="n">N_att</span><span class="p">))</span>
+    <span class="n">unfolded_q</span> <span class="o">=</span> <span class="n">omega</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],:]</span>
+    <span class="k">for</span> <span class="n">att</span><span class="p">,</span><span class="n">mask</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">masks_att_list</span><span class="p">):</span>
+        <span class="n">qka2</span><span class="p">[:,</span><span class="n">att</span><span class="p">]</span> <span class="o">+=</span> <span class="n">unfolded_q</span><span class="p">[</span><span class="n">mask</span><span class="p">,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">suma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">qka2</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">qka2</span> <span class="o">/=</span><span class="n">suma</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">qka2</span></div>
+
+
+<div class="viewcode-block" id="p_kl_comp_arrays">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.p_kl_comp_arrays">[docs]</a>
+<span class="k">def</span> <span class="nf">p_kl_comp_arrays</span><span class="p">(</span><span class="n">Ka</span><span class="p">,</span><span class="n">Kb</span><span class="p">,</span><span class="n">N_labels</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">mask_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the probability matrix between groups in nodes_a layer and group nodes_b layer in a BiNet network.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Ka : int</span>
+<span class="sd">        Number of groups in layer a</span>
+<span class="sd">    Kb : int</span>
+<span class="sd">        Number of groups in layer b</span>
+<span class="sd">    N_labels : int</span>
+<span class="sd">        Number of possible labels</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        Array containing the links</span>
+<span class="sd">    omega : np.array</span>
+<span class="sd">        The omega matrix</span>
+<span class="sd">    mask_list : list</span>
+<span class="sd">        List of masks for each label</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The probability matrix of shape (Ka, Kb, N_labels) between nodes_a and nodes_b</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">p_kl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Ka</span><span class="p">,</span><span class="n">Kb</span><span class="p">,</span><span class="n">N_labels</span><span class="p">))</span>
+    <span class="n">sum_list</span> <span class="o">=</span> <span class="n">omega</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],:,:]</span>
+    <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">mask</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mask_list</span><span class="p">):</span>
+        <span class="n">p_kl</span><span class="p">[:,:,</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum_list</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">suma</span> <span class="o">=</span> <span class="n">p_kl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">p_kl</span><span class="p">[:,:,:]</span> <span class="o">/=</span> <span class="p">(</span><span class="n">suma</span><span class="p">[:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span><span class="o">+</span><span class="mf">1e-16</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p_kl</span></div>
+
+
+
+
+<div class="viewcode-block" id="theta_meta">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.theta_meta">[docs]</a>
+<span class="k">def</span> <span class="nf">theta_meta</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the membership matrix for metadata.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        The membership matrix</span>
+<span class="sd">    meta : metadata_layer</span>
+<span class="sd">        The metadata layer object</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        The computed membership matrix for the metadata</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">veins</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">veins_items_array</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">L</span><span class="p">):</span>
+            <span class="n">new_eta</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">omega</span><span class="p">[</span><span class="n">veins</span><span class="p">,</span><span class="n">j</span><span class="p">,:,</span><span class="n">l</span><span class="p">])</span>
+            <span class="n">new_eta</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">l</span><span class="p">]</span> <span class="o">/=</span> <span class="n">N_veins_items</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">new_eta</span></div>
+
+
+
+<div class="viewcode-block" id="log_like_comp">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.log_like_comp">[docs]</a>
+<span class="k">def</span> <span class="nf">log_like_comp</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">pkl</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">labels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the log_likelihood given the membership matrices of two nodes layer and its matrix probabilities.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        Membership matrix for layer a</span>
+<span class="sd">    eta : np.array</span>
+<span class="sd">        Membership matrix for layer b</span>
+<span class="sd">    pkl : np.array</span>
+<span class="sd">        Probability matrix between groups</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        Array containing the indexes of the links</span>
+<span class="sd">    labels : np.array</span>
+<span class="sd">        Array containing the indexes of the labels for each link</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The computed log likelihood</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]][:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">eta</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]][:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:]</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">pkl</span><span class="p">[:,:,</span><span class="n">labels</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(((</span><span class="n">T</span><span class="nd">@E</span><span class="p">)</span><span class="o">*</span><span class="n">P</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="total_p_comp_test">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.total_p_comp_test">[docs]</a>
+<span class="k">def</span> <span class="nf">total_p_comp_test</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">eta</span><span class="p">,</span> <span class="n">pkl</span><span class="p">,</span> <span class="n">links</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the probabilities that two nodes are connected with each link label.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        Membership matrix for layer a</span>
+<span class="sd">    eta : np.array</span>
+<span class="sd">        Membership matrix for layer b</span>
+<span class="sd">    pkl : np.array</span>
+<span class="sd">        Probability matrix between groups</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        Array containing the links</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        Array of probabilities for each link label</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">TE</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]][:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span><span class="nd">@eta</span><span class="p">[</span><span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]][:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,:]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">TE</span><span class="p">[:,:,:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span><span class="o">*</span><span class="n">pkl</span><span class="p">[:,:,:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="log_like_comp_exclusive">
+<a class="viewcode-back" href="../../functions/MMSBM_functions.html#functions.MMSBM_functions.log_like_comp_exclusive">[docs]</a>
+<span class="k">def</span> <span class="nf">log_like_comp_exclusive</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">qka</span><span class="p">,</span> <span class="n">links</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the log_likelihood of a bipartite network of exclusive metadata.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    theta : np.array</span>
+<span class="sd">        Membership matrix for nodes</span>
+<span class="sd">    qka : np.array</span>
+<span class="sd">        Probability matrix between groups and attributes</span>
+<span class="sd">    links : np.array</span>
+<span class="sd">        Array containing the indexes of the links</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The computed log likelihood for exclusive metadata</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">links</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">links</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="n">theta</span><span class="p">[</span><span class="n">I</span><span class="p">]</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">qka</span><span class="p">[:,</span><span class="n">A</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">((</span><span class="n">T</span><span class="o">.</span><span class="n">T</span><span class="o">*</span><span class="n">Q</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">numba_imported</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">A_lambda</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Multiplies a matrix A by a scalar lambda_val.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        A : np.array</span>
+<span class="sd">            Input matrix</span>
+<span class="sd">        lambda_val : float</span>
+<span class="sd">            Scalar multiplier</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The matrix A multiplied by lambda_val</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="n">lambda_val</span>
+
+
+
+    <span class="k">def</span> <span class="nf">sum_omega_02</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis 0 and 2 the omega matrix. Is equivalent to np.sum(omega, axis=(0,2)).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis 0 and 2 of omega</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">omega</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">sum_omega_13</span><span class="p">(</span><span class="n">omega</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis 1 and 3 the omega matrix. Is equivalent to np.sum(omega, axis=(1,3)).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis 1 and 3 of omega</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">omega</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+
+
+
+    <span class="k">def</span> <span class="nf">sum_omega_ax</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis ax the omega matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+<span class="sd">        ax : int</span>
+<span class="sd">            Axis to sum over</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis ax of omega</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">omega</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+
+
+
+    <span class="k">def</span> <span class="nf">sum_omega_02_lambda</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis 0 and 2 the omega matrix and multiplies the result by a scalar lambda_val.</span>
+<span class="sd">        Is equivalent to np.sum(omega, axis=(0,2))*lambda_val.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+<span class="sd">        lambda_val : float</span>
+<span class="sd">            Scalar multiplier</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis 0 and 2 of omega multiplied by lambda_val</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">A_lambda</span><span class="p">(</span><span class="n">sum_omega_02</span><span class="p">(</span><span class="n">omega</span><span class="p">),</span><span class="n">lambda_val</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sum_omega_13_lambda</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis 1 and 3 the omega matrix and multiplies the result by a scalar lambda_val.</span>
+<span class="sd">        Is equivalent to np.sum(omega, axis=(1,3))*lambda_val.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+<span class="sd">        lambda_val : float</span>
+<span class="sd">            Scalar multiplier</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis 1 and 3 of omega multiplied by lambda_val</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">A_lambda</span><span class="p">(</span><span class="n">sum_omega_13</span><span class="p">(</span><span class="n">omega</span><span class="p">),</span><span class="n">lambda_val</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">sum_omega_ax_lambda</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">lambda_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sum over axis ax the omega matrix and multiplies the result by a scalar lambda_val.</span>
+<span class="sd">        Is equivalent to np.sum(omega, axis=(ax))*lambda_val.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        omega : np.array</span>
+<span class="sd">            Input omega matrix</span>
+<span class="sd">        ax : int</span>
+<span class="sd">            Axis to sum over</span>
+<span class="sd">        lambda_val : float</span>
+<span class="sd">            Scalar multiplier</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            The sum over axis ax of omega multiplied by lambda_val</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">A_lambda</span><span class="p">(</span><span class="n">sum_omega_ax</span><span class="p">(</span><span class="n">omega</span><span class="p">,</span><span class="n">ax</span><span class="p">),</span><span class="n">lambda_val</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Oscar Fajardo Fontiveros.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
